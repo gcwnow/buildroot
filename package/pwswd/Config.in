@@ -1,0 +1,8 @@
+config BR2_PACKAGE_PWSWD
+	bool "pwswd"
+	help
+	  Power Switch Daemon for Dingoo A320/A330.
+	  It allows the user to change various system settings such as brightness,
+	  volume, TV-out and more by pressing the power slider plus a button.
+
+	  https://github.com/Ayla-/pwswd
