@@ -1,0 +1,6 @@
+config BR2_PACKAGE_DINGOO_TVOUT
+	bool "dingoo-tvout"
+	help
+	  TV-out switch tool for Dingoo A320/A330.
+
+	  https://github.com/mthuurne/dingoo-tvout
