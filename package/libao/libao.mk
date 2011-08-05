@@ -11,11 +11,16 @@ LIBAO_INSTALL_STAGING = YES
 LIBAO_LICENSE = GPLv2+
 LIBAO_LICENSE_FILES = COPYING
 LIBAO_CONF_OPT = --disable-esd --disable-wmm --disable-arts \
-			--disable-nas --disable-pulse
+			--disable-nas --disable-pulse --disable-broken-oss
+
+define LIBAO_REMOVE_OSS_PLUGIN
+	rm -f $(TARGET_DIR)/usr/lib/ao/plugins-4/liboss.so
+endef
 
 ifeq ($(BR2_PACKAGE_ALSA_LIB),y)
 LIBAO_DEPENDENCIES += alsa-lib
 LIBAO_CONF_OPT += --enable-alsa --enable-alsa-mmap
+LIBAO_POST_INSTALL_TARGET_HOOKS += LIBAO_REMOVE_OSS_PLUGIN
 else
 LIBAO_CONF_OPT += --disable-alsa
 endif
