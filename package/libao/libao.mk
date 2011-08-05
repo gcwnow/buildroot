@@ -9,7 +9,7 @@ LIBAO_SITE = http://downloads.xiph.org/releases/ao
 LIBAO_DEPENDENCIES = host-pkg-config
 LIBAO_INSTALL_STAGING = YES
 LIBAO_CONF_OPT = --disable-esd --disable-wmm --disable-arts \
-			--disable-nas --disable-pulse
+			--disable-nas --disable-pulse --disable-broken-oss
 
 define LIBAO_REMOVE_OSS_PLUGIN
 	rm -f $(TARGET_DIR)/usr/lib/ao/plugins-4/liboss.so
