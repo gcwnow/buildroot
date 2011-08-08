@@ -131,6 +131,7 @@ source "package/sdl_sound/Config.in"
 source "package/sdl_net/Config.in"
 source "package/sdl_ttf/Config.in"
 source "package/sdl_gfx/Config.in"
+source "package/timidity-instruments/Config.in"
 
 comment "other GUIs"
 source "package/efl/Config.in"
