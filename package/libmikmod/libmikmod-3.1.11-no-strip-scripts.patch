@@ -1,0 +1,12 @@
+diff -rupN a/configure b/configure
+--- a/configure	2004-01-21 18:43:52.000000000 +0100
++++ b/configure	2009-09-13 03:58:02.000000000 +0200
+@@ -816,7 +816,7 @@ echo "$ac_t""$INSTALL" 1>&6
+ # It thinks the first close brace ends the variable substitution.
+ test -z "$INSTALL_PROGRAM" && INSTALL_PROGRAM='${INSTALL}'
+ 
+-test -z "$INSTALL_SCRIPT" && INSTALL_SCRIPT='${INSTALL_PROGRAM}'
++test -z "$INSTALL_SCRIPT" && INSTALL_SCRIPT='${INSTALL}'
+ 
+ test -z "$INSTALL_DATA" && INSTALL_DATA='${INSTALL} -m 644'
+ 
