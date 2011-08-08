@@ -117,6 +117,7 @@ endif
 source "package/fbterm/Config.in"
 source "package/fbv/Config.in"
 source "package/imagemagick/Config.in"
+source "package/libmikmod/Config.in"
 source "package/linux-fusion/Config.in"
 source "package/lite/Config.in"
 source "package/sawman/Config.in"
