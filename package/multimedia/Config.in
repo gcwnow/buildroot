@@ -1,5 +1,6 @@
 menu "Audio and video applications"
 source "package/multimedia/alsa-utils/Config.in"
+source "package/multimedia/alsa-volume/Config.in"
 source "package/multimedia/aumix/Config.in"
 source "package/multimedia/bellagio/Config.in"
 source "package/multimedia/faad2/Config.in"
