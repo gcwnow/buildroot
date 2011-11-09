@@ -155,6 +155,32 @@ endef
 
 PYTHON_POST_INSTALL_TARGET_HOOKS += PYTHON_REMOVE_USELESS_FILES
 
+# Remove compiled binaries.
+define PYTHON_REMOVE_PYC
+	for i in `find $(TARGET_DIR)/usr/lib/python$(PYTHON_VERSION_MAJOR) \
+		-type f -name '*.pyc'` ; do \
+		rm -f $$i ; \
+	done
+endef
+
+# Remove python scripts, only if precompiled versions exist.
+define PYTHON_REMOVE_PY
+	for i in `find $(TARGET_DIR)/usr/lib/python$(PYTHON_VERSION_MAJOR) \
+		-type f -name '*.py'` ; do \
+		if [ -f $$ic ] ; then \
+			rm -f $$i ; \
+		fi \
+	done
+endef
+
+ifeq ($(BR2_PACKAGE_PYTHON_PYC_ONLY),y)
+	PYTHON_POST_INSTALL_TARGET_HOOKS += PYTHON_REMOVE_PY
+endif
+
+ifeq ($(BR2_PACKAGE_PYTHON_PY_ONLY),y)
+	PYTHON_POST_INSTALL_TARGET_HOOKS += PYTHON_REMOVE_PYC
+endif
+
 PYTHON_AUTORECONF = YES
 
 $(eval $(autotools-package))
