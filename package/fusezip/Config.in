@@ -1,0 +1,9 @@
+config BR2_PACKAGE_FUSEZIP
+	bool "fusezip"
+	select BR2_PACKAGE_LIBZIP
+	select BR2_PACKAGE_LIBFUSE
+	help
+	  fuse-zip is a FUSE file system to navigate, extract,
+	  create and modify ZIP archives.
+
+	  http://code.google.com/p/fuse-zip/

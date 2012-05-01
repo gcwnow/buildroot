@@ -1,0 +1,26 @@
+diff --git a/lib/bigBuffer.cpp b/lib/bigBuffer.cpp
+index 32750db..44490c6 100644
+--- a/lib/bigBuffer.cpp
++++ b/lib/bigBuffer.cpp
+@@ -236,7 +236,7 @@ void BigBuffer::truncate(offset_t offset) {
+     len = offset;
+ }
+ 
+-ssize_t BigBuffer::zipUserFunctionCallback(void *state, void *data, size_t len, enum zip_source_cmd cmd) {
++zip_int64_t BigBuffer::zipUserFunctionCallback(void *state, void *data, zip_uint64_t len, enum zip_source_cmd cmd) {
+     CallBackStruct *b = (CallBackStruct*)state;
+     switch (cmd) {
+         case ZIP_SOURCE_OPEN: {
+diff --git a/lib/bigBuffer.h b/lib/bigBuffer.h
+index 9ad4d76..a5e6c08 100644
+--- a/lib/bigBuffer.h
++++ b/lib/bigBuffer.h
+@@ -52,7 +52,7 @@ private:
+      * never called because read() always successfull.
+      * See zip_source_function(3) for details.
+      */
+-    static ssize_t zipUserFunctionCallback(void *state, void *data, size_t len, enum zip_source_cmd cmd);
++    static zip_int64_t zipUserFunctionCallback(void *state, void *data, zip_uint64_t len, enum zip_source_cmd cmd);
+ 
+     /**
+      * Return number of chunks needed to keep 'offset' bytes.
