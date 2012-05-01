@@ -322,6 +322,7 @@ source "package/libconfuse/Config.in"
 source "package/libfuse/Config.in"
 source "package/liblockfile/Config.in"
 source "package/libsysfs/Config.in"
+source "package/fusezip/Config.in"
 endmenu
 
 menu "Graphics"
