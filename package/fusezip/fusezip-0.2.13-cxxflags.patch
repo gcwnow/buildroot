@@ -1,0 +1,25 @@
+diff --git a/Makefile b/Makefile
+index b5ae4ce..08048ac 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,7 +1,7 @@
+ DEST=fuse-zip
+ LIBS=$(shell pkg-config fuse --libs) $(shell pkg-config libzip --libs) -Llib -lfusezip
+ LIB=lib/libfusezip.a
+-CXXFLAGS=-g -O2 -Wall -Wextra
++CXXFLAGS?=-g -O2 -Wall -Wextra
+ RELEASE_CXXFLAGS=-O2 -Wall -Wextra
+ FUSEFLAGS=$(shell pkg-config fuse --cflags)
+ SOURCES=main.cpp
+diff --git a/lib/Makefile b/lib/Makefile
+index 22f6446..57d410c 100644
+--- a/lib/Makefile
++++ b/lib/Makefile
+@@ -1,6 +1,6 @@
+ DEST=libfusezip.a
+ LIBS=$(shell pkg-config fuse --libs) $(shell pkg-config libzip --libs)
+-CXXFLAGS=-g -O2 -Wall -Wextra
++CXXFLAGS?=-g -O2 -Wall -Wextra
+ RELEASE_CXXFLAGS=-O2 -Wall -Wextra
+ FUSEFLAGS=$(shell pkg-config fuse --cflags)
+ ZIPFLAGS=$(shell pkg-config libzip --cflags)
