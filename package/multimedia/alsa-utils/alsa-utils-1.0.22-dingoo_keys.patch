@@ -1,0 +1,20 @@
+diff -ru alsa-utils-1.0.22.org/alsamixer/mixer_widget.c alsa-utils-1.0.22/alsamixer/mixer_widget.c
+--- alsa-utils-1.0.22.org/alsamixer/mixer_widget.c	2009-12-16 16:18:52.000000000 +0100
++++ alsa-utils-1.0.22/alsamixer/mixer_widget.c	2012-05-23 18:44:16.000000000 +0200
+@@ -605,6 +605,7 @@
+ 		break;
+ 	case 'M':
+ 	case 'm':
++	case ' ':
+ 		toggle_mute(LEFT | RIGHT);
+ 		break;
+ 	case 'B':
+@@ -620,7 +621,7 @@
+ 	case '.':
+ 		toggle_mute(RIGHT);
+ 		break;
+-	case ' ':
++	case '\n':
+ 		toggle_capture(LEFT | RIGHT);
+ 		break;
+ 	case KEY_IC:
