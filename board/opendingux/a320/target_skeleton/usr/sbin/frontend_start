@@ -1,0 +1,12 @@
+#!/bin/sh
+
+export HOME=`cat /etc/passwd |head -1 |cut -d':' -f 6`
+
+# Disactivate the console on framebuffer
+echo 0 > /sys/devices/virtual/vtconsole/vtcon1/bind
+
+if [ -f /usr/local/sbin/frontend_start ]; then
+	. /usr/local/sbin/frontend_start
+else
+	/usr/bin/gmenu2x
+fi
