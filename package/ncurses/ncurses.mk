@@ -26,7 +26,6 @@
 NCURSES_VERSION = 5.7
 NCURSES_SITE = $(BR2_GNU_MIRROR)/ncurses
 NCURSES_INSTALL_STAGING = YES
-NCURSES_DEPENDENCIES = host-ncurses
 
 NCURSES_CONF_OPT = \
 	--with-shared \
@@ -122,20 +121,4 @@ define NCURSES_INSTALL_TARGET_CMDS
 	$(NCURSES_INSTALL_TARGET_DEVFILES)
 endef # NCURSES_INSTALL_TARGET_CMDS
 
-#
-# On systems with an older version of tic, the installation of ncurses hangs
-# forever. To resolve the problem, build a static version of tic on host
-# ourselves, and use that during installation.
-#
-define HOST_NCURSES_BUILD_CMDS
-	$(MAKE1) -C $(@D) sources
-	$(MAKE) -C $(@D)/progs tic
-endef
-
-HOST_NCURSES_DEPENDENCIES =
-
-HOST_NCURSES_CONF_OPT = \
-	--without-shared --without-gpm
-
 $(eval $(call AUTOTARGETS))
-$(eval $(call AUTOTARGETS,host))
