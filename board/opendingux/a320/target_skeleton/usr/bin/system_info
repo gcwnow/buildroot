@@ -1,9 +1,11 @@
 #!/bin/sh
 
+. /etc/os-release
+ROOTFS_VERSION="$VERSION"
+ROOTFS_DATE=`date -r /etc/os-release '+%a %b %d %H:%M:%S %Z %Y' `
+
 KERNEL_VERSION=`uname -r`
 KERNEL_DATE=`uname -v |cut -d ' ' -f 2-7`
-ROOTFS_VERSION=`cat /etc/br-version`
-ROOTFS_DATE=`date -r /etc/br-version  '+%a %b %d %H:%M:%S %Z %Y' `
 PROCESSOR=`cat /proc/cpuinfo |head -1 |sed 's/^.*: //' `
 LCD_CONTROLLER=`cat /sys/devices/platform/jz4740-fb/panel`
 RAM=`cat /proc/meminfo | head -1 |sed 's/^MemTotal: \+//' `
