@@ -97,11 +97,18 @@ define PYTHON_PYGAME_REMOVE_DOC
 endef
 endif
 
+ifneq ($(BR2_PACKAGE_PYTHON_PYGAME_EXAMPLES),y)
+define PYTHON_PYGAME_REMOVE_EXAMPLES
+	rm -rf $(TARGET_DIR)/usr/lib/python*/site-packages/pygame/examples
+endef
+endif
+
 define PYTHON_PYGAME_INSTALL_TARGET_CMDS
 	(cd $(@D); $(HOST_DIR)/usr/bin/python setup.py install \
 		--prefix=$(TARGET_DIR)/usr)
 	rm -rf $(TARGET_DIR)/usr/lib/python*/site-packages/pygame/tests
 	$(PYTHON_PYGAME_REMOVE_DOC)
+	$(PYTHON_PYGAME_REMOVE_EXAMPLES)
 endef
 
 define PYTHON_PYGAME_UNINSTALL_TARGET_CMDS
