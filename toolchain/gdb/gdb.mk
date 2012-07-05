@@ -192,6 +192,7 @@ $(GDB_HOST_DIR)/.configured: $(GDB_DIR)/.unpacked
 		--without-included-gettext \
 		--enable-threads \
 		--disable-werror \
+		--with-python=$(HOST_DIR)/usr \
 	)
 	touch $@
 
@@ -206,7 +207,7 @@ $(TARGET_CROSS)gdb: $(GDB_HOST_DIR)/gdb/gdb
 	ln -snf $(REAL_GNU_TARGET_NAME)-gdb \
 		$(HOST_DIR)/usr/bin/$(GNU_TARGET_NAME)-gdb
 
-gdbhost: host-expat $(TARGET_CROSS)gdb
+gdbhost: host-expat host-python $(TARGET_CROSS)gdb
 
 gdbhost-source: $(DL_DIR)/$(GDB_SOURCE)
 
