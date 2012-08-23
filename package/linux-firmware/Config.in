@@ -41,6 +41,30 @@ config BR2_PACKAGE_LINUX_FIRMWARE_RALINK_RT2XX
 
 endmenu
 
+menu "Realtek"
+
+config BR2_PACKAGE_LINUX_FIRMWARE_REALTEK_RTL8192CE
+	bool "Realtek RTL8192CE"
+	help
+	  Firmware for Realtek RTL8192CE
+
+config BR2_PACKAGE_LINUX_FIRMWARE_REALTEK_RTL8192CU
+	bool "Realtek RTL8192CU"
+	help
+	  Firmware for Realtek RTL8192CU
+
+config BR2_PACKAGE_LINUX_FIRMWARE_REALTEK_RTL8192DE
+	bool "Realtek RTL8192DE"
+	help
+	  Firmware for Realtek RTL8192DE
+
+config BR2_PACKAGE_LINUX_FIRMWARE_REALTEK_RTL8192SE
+	bool "Realtek RTL8192SE"
+	help
+	  Firmware for Realtek RTL8192SE
+
+endmenu
+
 menu "Texas Instruments"
 
 config BR2_PACKAGE_LINUX_FIRMWARE_TI_WL127X
