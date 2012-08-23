@@ -11,8 +11,6 @@ elif [ "$ACTION" = "remove" ]; then
     rmdir /media/$1
 
 elif ! [ `ls /sys/class/block/${1}?* 2>/dev/null` ]; then
-    mkdir /media/$1
-    mount /dev/$1 /media/$1 -o $2
-    if [ $? -ne 0 ]; then rmdir /media/$1; fi
-fi
+    mkdir /media/$1 && ( mount /dev/$1 /media/$1 -o $2 || rmdir /media/$1 )
 
+fi
