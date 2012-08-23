@@ -36,9 +36,6 @@
 # now run any rc scripts
 ::sysinit:/etc/init.d/rcS start
 
-# Put a getty on the serial port
-ttyS0::respawn:/sbin/getty -L ttyS0 57600 vt100
-
 # Launch the main application
 tty1::respawn:/usr/sbin/frontend_start
 
