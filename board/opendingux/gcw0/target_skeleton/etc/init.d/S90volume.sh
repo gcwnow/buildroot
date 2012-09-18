@@ -3,15 +3,11 @@
 # Simple script to load/store ALSA parameters (volume...)
 #
 
-ASOUND_STATEFILE=/etc/asound.state
 VOLUME_STATEFILE=/etc/local/volume.state
-CONTROL=SoftMaster
+CONTROL=PCM
 
 case "$1" in
 	start)
-		echo "Creating $CONTROL control..."
-		/usr/sbin/alsactl -f $ASOUND_STATEFILE restore
-
 		echo "Loading sound volume..."
 		if [ -f $VOLUME_STATEFILE ]; then
 			/usr/bin/amixer set $CONTROL `cat $VOLUME_STATEFILE`
@@ -27,4 +23,3 @@ case "$1" in
 esac
 
 exit $?
-
