@@ -7,3 +7,19 @@ config BR2_PACKAGE_OPENSSH
 	  tools.  The standard 'ssh', 'sshd', 'scp', and friends.
 
 	  http://www.openssh.com/
+
+if BR2_PACKAGE_OPENSSH
+
+config BR2_PACKAGE_OPENSSH_START_DAEMON
+	bool "Start OpenSSH daemon at boot"
+	default y
+	help
+	  If you disable this option, the init script will not be installed
+	  and as a result the OpenSSH daemon will not be started at boot.
+	  Also the host key generation on first boot is skipped.
+
+	  This is useful if you only want OpenSSH for the client programs
+	  or if you use Dropbear as the SSH server but want to add SFTP
+	  support.
+
+endif # BR2_PACKAGE_OPENSSH
