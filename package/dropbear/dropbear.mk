@@ -23,6 +23,12 @@ endef
 
 DROPBEAR_POST_EXTRACT_HOOKS += DROPBEAR_FIX_XAUTH
 
+define DROPBEAR_FIX_SFTPSERVER_PATH
+	$(SED) 's,^#define SFTPSERVER_PATH.*,#define SFTPSERVER_PATH "/usr/lib/sftp-server",' $(@D)/options.h
+endef
+
+DROPBEAR_POST_EXTRACT_HOOKS += DROPBEAR_FIX_SFTPSERVER_PATH
+
 define DROPBEAR_DISABLE_REVERSE_DNS
 	$(SED) 's,^#define DO_HOST_LOOKUP.*,/* #define DO_HOST_LOOKUP */,' $(@D)/options.h
 endef
