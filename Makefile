@@ -410,7 +410,9 @@ endif
 ifeq ($(BR2_PACKAGE_PYTHON_PYC_ONLY),y)
 	find $(TARGET_DIR)/usr/lib/ -name '*.py' -print0 | xargs -0 rm -f
 endif
-	find $(TARGET_DIR) -type f -perm +111 '!' -name 'libthread_db*.so*' | \
+	find $(TARGET_DIR) -path $(TARGET_DIR)/usr/lib/debug -prune \
+		-type f -perm +111 \
+		'!' -name 'libthread_db*.so*' '!' -name 'libpthread*.so*' | \
 		xargs $(STRIPCMD) 2>/dev/null || true
 	find $(TARGET_DIR)/lib/modules -type f -name '*.ko' | \
 		xargs -r $(KSTRIPCMD) || true
