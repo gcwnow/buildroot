@@ -4,7 +4,7 @@
 #
 #############################################################
 
-LIBEVAS_VERSION = 1.1.0
+LIBEVAS_VERSION = 1.7.0
 LIBEVAS_SOURCE = evas-$(LIBEVAS_VERSION).tar.bz2
 LIBEVAS_SITE = http://download.enlightenment.org/releases/
 LIBEVAS_INSTALL_STAGING = YES
