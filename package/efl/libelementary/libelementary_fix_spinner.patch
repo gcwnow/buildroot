@@ -1,0 +1,43 @@
+diff --git a/src/lib/elm_spinner.c b/src/lib/elm_spinner.c
+index dd3b023..1c31c4b 100644
+--- a/src/lib/elm_spinner.c
++++ b/src/lib/elm_spinner.c
+@@ -422,9 +422,7 @@ _elm_spinner_smart_event(Evas_Object *obj,
+ 
+         if (ev->event_flags & EVAS_EVENT_FLAG_ON_HOLD) return EINA_FALSE;
+         else if (!strcmp(ev->keyname, "Left") ||
+-                 ((!strcmp(ev->keyname, "KP_Left")) && (!ev->string)) ||
+-                 !strcmp(ev->keyname, "Down") ||
+-                 ((!strcmp(ev->keyname, "KP_Down")) && (!ev->string)))
++                 ((!strcmp(ev->keyname, "KP_Left")) && (!ev->string)))
+           {
+              _val_dec_start(obj);
+              elm_layout_signal_emit(obj, "elm,left,anim,activate", "elm");
+@@ -432,9 +430,7 @@ _elm_spinner_smart_event(Evas_Object *obj,
+              return EINA_TRUE;
+           }
+         else if (!strcmp(ev->keyname, "Right") ||
+-                 ((!strcmp(ev->keyname, "KP_Right")) && (!ev->string)) ||
+-                 !strcmp(ev->keyname, "Up") ||
+-                 ((!strcmp(ev->keyname, "KP_Up")) && (!ev->string)))
++                 ((!strcmp(ev->keyname, "KP_Right")) && (!ev->string)))
+           {
+              _val_inc_start(obj);
+              elm_layout_signal_emit(obj, "elm,right,anim,activate", "elm");
+@@ -448,14 +444,10 @@ _elm_spinner_smart_event(Evas_Object *obj,
+ 
+         if (ev->event_flags & EVAS_EVENT_FLAG_ON_HOLD) return EINA_FALSE;
+         if (!strcmp(ev->keyname, "Right") ||
+-            ((!strcmp(ev->keyname, "KP_Right")) && (!ev->string)) ||
+-            !strcmp(ev->keyname, "Up") ||
+-            ((!strcmp(ev->keyname, "KP_Up")) && (!ev->string)))
++            ((!strcmp(ev->keyname, "KP_Right")) && (!ev->string)))
+           _val_inc_stop(obj);
+         else if (!strcmp(ev->keyname, "Left") ||
+-                 ((!strcmp(ev->keyname, "KP_Left")) && (!ev->string)) ||
+-                 !strcmp(ev->keyname, "Down") ||
+-                 ((!strcmp(ev->keyname, "KP_Down")) && (!ev->string)))
++                 ((!strcmp(ev->keyname, "KP_Left")) && (!ev->string)))
+           _val_dec_stop(obj);
+         else return EINA_FALSE;
+ 
