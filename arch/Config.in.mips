@@ -30,6 +30,12 @@ config BR2_mips_64
 	bool "mips 64"
 config BR2_mips_64r2
 	bool "mips 64r2"
+config BR2_mips_jz4740
+	bool "Ingenic JZ4740"
+	depends on BR2_mipsel
+config BR2_mips_jz4770
+	bool "Ingenic JZ4770"
+	depends on BR2_mipsel
 endchoice
 
 
@@ -57,6 +63,8 @@ config BR2_ARCH
 	default "mipsel"	if BR2_mipsel
 	default "mips64"	if BR2_mips64
 	default "mips64el"	if BR2_mips64el
+	default "mips32"	if BR2_mips_jz4740
+	default "mips32r2"	if BR2_mips_jz4770
 
 config BR2_ENDIAN
 	default "LITTLE"	if BR2_mipsel || BR2_mips64el
@@ -71,6 +79,8 @@ config BR2_GCC_TARGET_TUNE
 	default "mips32r2"	if BR2_mips_32r2
 	default "mips64"	if BR2_mips_64
 	default "mips64r2"	if BR2_mips_64r2
+	default "mips32r2"	if BR2_mips_jz4740
+	default "mips32r2"	if BR2_mips_jz4770
 
 config BR2_GCC_TARGET_ABI
 	default "32"		if BR2_MIPS_OABI32
