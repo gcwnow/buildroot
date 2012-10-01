@@ -264,6 +264,10 @@ config BR2_mips_64r2
 	bool "mips 64r2"
 config BR2_mips_16
 	bool "mips 16"
+config BR2_mips_jz4740
+	bool "Ingenic JZ4740"
+config BR2_mips_jz4770
+	bool "Ingenic JZ4770"
 endchoice
 
 
@@ -755,6 +759,8 @@ config BR2_GCC_TARGET_TUNE
 	default mips64		if BR2_mips_64
 	default mips64r2	if BR2_mips_64r2
 	default mips16		if BR2_mips_16
+	default mips32r2	if BR2_mips_jz4740
+	default mips32r2	if BR2_mips_jz4770
 	default 401		if BR2_powerpc_401
 	default 403		if BR2_powerpc_403
 	default 405		if BR2_powerpc_405
@@ -853,6 +859,8 @@ config BR2_GCC_TARGET_ARCH
 	default 68030		if BR2_m68k_68030
 	default 68040		if BR2_m68k_68040
 	default 68060		if BR2_m68k_68060
+	default mips32		if BR2_mips_jz4740
+	default mips32r2	if BR2_mips_jz4770
 
 config BR2_GCC_TARGET_ABI
 	string
