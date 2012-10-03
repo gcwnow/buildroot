@@ -1,0 +1,8 @@
+config BR2_PACKAGE_PYCLOCK
+	bool "pyCLOCK"
+	help
+	  Clock application that includes an analog clock, a calendar, a wakeup
+	  alarm and a countdown timer. It can also be used to adjust the current
+	  system time.
+
+	  https://github.com/BouKiCHi/pyCLOCK

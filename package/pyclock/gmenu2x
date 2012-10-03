@@ -1,0 +1,4 @@
+title=Clock
+exec=/usr/bin/pyclock
+icon=/usr/share/pyclock/pyclock.png
+clock=192
