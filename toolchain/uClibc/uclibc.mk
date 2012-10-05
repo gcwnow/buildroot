@@ -188,6 +188,9 @@ endif
 ifeq ($(BR2_mips_jz4740),y)
 	$(SED) 's/.*\(CONFIG_MIPS_ISA_MIPS32\)[^R].*/\1=y/' $(UCLIBC_DIR)/.oldconfig
 endif
+ifeq ($(BR2_mips_jz4770),y)
+	$(SED) 's/.*\(CONFIG_MIPS_ISA_MIPS32R2\)[^R].*/\1=y/' $(UCLIBC_DIR)/.oldconfig
+endif
 endif
 ifeq ($(UCLIBC_TARGET_ARCH),sh)
 	/bin/echo "# CONFIG_SH2A is not set" >> $(UCLIBC_DIR)/.oldconfig
