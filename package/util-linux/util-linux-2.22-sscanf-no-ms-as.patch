@@ -1,29 +1,21 @@
-[PATCH] Fix libmount build under uClibc
-
-Taken from gentoo-hardened:
-http://git.overlays.gentoo.org/gitweb/?p=proj/hardened-dev.git;a=commit;h=91879751
-
-For details, see https://bugs.gentoo.org/show_bug.cgi?id=406303
-
-Signed-off-by: Peter Korsgaard <jacmet@sunsite.dk>
-diff -Naur util-linux-2.20.1.orig/libmount/src/tab_parse.c util-linux-2.20.1/libmount/src/tab_parse.c
---- util-linux-2.20.1.orig/libmount/src/tab_parse.c	2011-12-12 20:51:06.646614964 -0500
-+++ util-linux-2.20.1/libmount/src/tab_parse.c	2011-12-12 21:02:03.587865010 -0500
-@@ -51,19 +51,21 @@
+diff -ru util-linux-2.22.org/libmount/src/tab_parse.c util-linux-2.22/libmount/src/tab_parse.c
+--- util-linux-2.22.org/libmount/src/tab_parse.c	2012-07-23 23:21:56.000000000 +0200
++++ util-linux-2.22/libmount/src/tab_parse.c	2012-10-06 04:28:47.000000000 +0200
+@@ -58,19 +58,21 @@
   */
  static int mnt_parse_table_line(struct libmnt_fs *fs, char *s)
  {
--	int rc, n = 0;
--	char *src, *fstype, *optstr;
+-	int rc, n = 0, xrc;
+-	char *src = NULL, *fstype = NULL, *optstr = NULL;
 -
 -	rc = sscanf(s,	UL_SCNsA" "	/* (1) source */
 -			UL_SCNsA" "	/* (2) target */
 -			UL_SCNsA" "	/* (3) FS type */
 -			UL_SCNsA" "	/* (4) options */
-+	int rc, n = 0, len = strlen (s) + 1;
++	int rc, n = 0, len = strlen (s) + 1, xrc;
 +	char *src     = malloc (sizeof *src * len);
-+  char *fstype  = malloc (sizeof *fstype * len);
-+  char *optstr  = malloc (sizeof *optstr * len);
++	char *fstype  = malloc (sizeof *fstype * len);
++	char *optstr  = malloc (sizeof *optstr * len);
 +
 +	rc = sscanf(s,	"%s"" "	/* (1) source */
 +			"%s"" "	/* (2) target */
@@ -40,20 +32,20 @@ diff -Naur util-linux-2.20.1.orig/libmount/src/tab_parse.c util-linux-2.20.1/lib
 +			fstype,
 +			optstr,
  			&n);
+ 	xrc = rc;
  
- 	if (rc == 4) {
-@@ -108,16 +110,20 @@
+@@ -132,16 +134,20 @@
   */
  static int mnt_parse_mountinfo_line(struct libmnt_fs *fs, char *s)
  {
 -	int rc, end = 0;
 +	int rc, end = 0, len = strlen (s) + 1;
  	unsigned int maj, min;
- 	char *fstype, *src, *p;
+ 	char *fstype = NULL, *src = NULL, *p;
  
-+  fs->root        = malloc (sizeof *fs->root * len);
-+  fs->target      = malloc (sizeof *fs->target * len);
-+  fs->vfs_optstr  = malloc (sizeof *fs->vfs_optstr * len);
++	fs->root        = malloc (sizeof *fs->root * len);
++	fs->target      = malloc (sizeof *fs->target * len);
++	fs->vfs_optstr  = malloc (sizeof *fs->vfs_optstr * len);
 +
  	rc = sscanf(s,	"%u "		/* (1) id */
  			"%u "		/* (2) parent */
@@ -67,17 +59,17 @@ diff -Naur util-linux-2.20.1.orig/libmount/src/tab_parse.c util-linux-2.20.1/lib
  			"%n",		/* number of read bytes */
  
  			&fs->id,
-@@ -139,9 +145,14 @@
+@@ -163,9 +169,14 @@
  	}
  	s = p + 3;
  
 -	rc += sscanf(s,	UL_SCNsA" "	/* (8) FS type */
 -			UL_SCNsA" "	/* (9) source */
 -			UL_SCNsA,	/* (10) fs options (fs specific) */
-+  len           = strlen (s) + 1;
++	len           = strlen (s) + 1;
 +	fstype        = malloc (sizeof *fstype * len);
-+  src           = malloc (sizeof *src * len);
-+  fs->fs_optstr = malloc (sizeof *fs->fs_optstr * len);
++	src           = malloc (sizeof *src * len);
++	fs->fs_optstr = malloc (sizeof *fs->fs_optstr * len);
 +
 +	rc += sscanf(s,	"%s"" "	/* (8) FS type */
 +			"%s"" "	/* (9) source */

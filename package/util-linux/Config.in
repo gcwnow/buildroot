@@ -20,6 +20,9 @@ config BR2_PACKAGE_UTIL_LINUX_MOUNT
 	bool "build mount utilties"
 	select BR2_PACKAGE_UTIL_LINUX_LIBBLKID
 
+config BR2_PACKAGE_UTIL_LINUX_LOSETUP
+	bool "build \"losetup\""
+
 config BR2_PACKAGE_UTIL_LINUX_FSCK
 	select BR2_PACKAGE_UTIL_LINUX_LIBBLKID
 	bool "build \"fsck\""
@@ -40,6 +43,9 @@ config BR2_PACKAGE_UTIL_LINUX_LIBBLKID
 	bool "build libblkid and blkid utilities"
 	default y
 
+config BR2_PACKAGE_UTIL_LINUX_EJECT
+	bool "build \"eject\""
+
 config BR2_PACKAGE_UTIL_LINUX_AGETTY
 	bool "build \"agetty\""
 
@@ -58,8 +64,23 @@ config BR2_PACKAGE_UTIL_LINUX_FALLOCATE
 config BR2_PACKAGE_UTIL_LINUX_UNSHARE
 	bool "build \"unshare\""
 
+config BR2_PACKAGE_UTIL_LINUX_KILL
+	bool "build \"kill\""
+
+config BR2_PACKAGE_UTIL_LINUX_UTMPDUMP
+	bool "build \"utmpdump\""
+
 config BR2_PACKAGE_UTIL_LINUX_RENAME
 	bool "build \"rename\""
+
+config BR2_PACKAGE_UTIL_LINUX_LOGIN
+	bool "build \"login\""
+
+config BR2_PACKAGE_UTIL_LINUX_SULOGIN
+	bool "build \"sulogin\""
+
+config BR2_PACKAGE_UTIL_LINUX_SU
+	bool "build \"su\""
 
 config BR2_PACKAGE_UTIL_LINUX_SCHEDUTILS
 	bool "build \"chrt, ionice, teskset\""
@@ -81,9 +102,6 @@ config BR2_PACKAGE_UTIL_LINUX_ARCH
 config BR2_PACKAGE_UTIL_LINUX_INIT
 	bool "build \"simpleinit, shutdown, initctl\""
 
-config BR2_PACKAGE_UTIL_LINUX_KILL
-	bool "build \"kill\""
-
 config BR2_PACKAGE_UTIL_LINUX_LAST
 	bool "build \"last\""
 
@@ -96,8 +114,14 @@ config BR2_PACKAGE_UTIL_LINUX_RAW
 config BR2_PACKAGE_UTIL_LINUX_RESET
 	bool "build \"reset\""
 
-config BR2_PACKAGE_UTIL_LINUX_LOGIN_UTILS
-	bool "build \"chfn, chsh, login, newgrp, vipw\""
+config BR2_PACKAGE_UTIL_LINUX_VIPW
+	bool "build \"vipw\""
+
+config BR2_PACKAGE_UTIL_LINUX_NEWGRP
+	bool "build \"newgrp\""
+
+config BR2_PACKAGE_UTIL_LINUX_CHFN_CHSH
+	bool "build \"chfn, chsh\""
 
 config BR2_PACKAGE_UTIL_LINUX_WRITE
 	bool "build \"write\""
