@@ -1,0 +1,13 @@
+diff -ru util-linux-2.22.org/disk-utils/fsck.minix.c util-linux-2.22/disk-utils/fsck.minix.c
+--- util-linux-2.22.org/disk-utils/fsck.minix.c	2012-07-23 23:21:56.000000000 +0200
++++ util-linux-2.22/disk-utils/fsck.minix.c	2012-10-06 05:29:36.000000000 +0200
+@@ -261,7 +261,8 @@
+ 	printf(def ? _("%s (y/n)? ") : _("%s (n/y)? "), string);
+ 	fflush(stdout);
+ 	ignore_result( fgets(input, YESNO_LENGTH, stdin) );
+-	resp = rpmatch(input);
++	resp = input[0] == 'y' || input[0] == 'Y' ? 1
++	     : input[0] == 'n' || input[0] == 'N' ? 0 : -1;
+ 	switch (resp) {
+ 	case -1:
+ 		/* def = def */
