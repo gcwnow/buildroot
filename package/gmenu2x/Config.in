@@ -1,5 +1,8 @@
 config BR2_PACKAGE_GMENU2X
 	bool "gmenu2x"
+	select BR2_PACKAGE_LIBPNG
+	select BR2_PACKAGE_SDL
+	select BR2_PACKAGE_SDL_GFX
 	help
 	  Application menu for devices with a 320x240 screen and buttons.
 
