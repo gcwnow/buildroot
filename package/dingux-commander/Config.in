@@ -1,0 +1,6 @@
+config BR2_PACKAGE_DINGUX_COMMANDER
+	bool "DinguxCommander"
+	help
+	  Two-pane file manager in the style of Norton Commander.
+
+	  http://beyondds.free.fr/index.php?Dingoo-dinguxcommander
