@@ -3,9 +3,8 @@
 # libmikmod
 #
 #############################################################
-LIBMIKMOD_VERSION:=3.1.11
+LIBMIKMOD_VERSION:=3.2.0
 LIBMIKMOD_SITE:=http://mikmod.shlomifish.org/files
-LIBMIKMOD_PATCH_FILE:=libmikmod-3.1.11-no-strip-scripts.patch
 
 LIBMIKMOD_CONF_OPT = --localstatedir=/var \
 		--disable-esd
