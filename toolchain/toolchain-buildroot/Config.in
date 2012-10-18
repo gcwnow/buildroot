@@ -70,6 +70,17 @@ config BR2_TOOLCHAIN_BUILDROOT_LIBC
 	default "glibc"  if BR2_TOOLCHAIN_BUILDROOT_EGLIBC
 	default "glibc"  if BR2_TOOLCHAIN_BUILDROOT_GLIBC
 
+config BR2_VENDOR
+	string "Toolchain vendor in GNU configuration name"
+	default "buildroot"
+	help
+	  The GNU build system identifies a machine using configuration name
+	  in the following format:
+	    <arch>-<vendor>-<kernel>-<os>
+	  This option lets you select the vendor part of that string.
+
+	  Usually it is best to stick with the default value of "buildroot".
+
 source "package/uclibc/Config.in"
 source "package/glibc/Config.in"
 source "package/binutils/Config.in.host"
