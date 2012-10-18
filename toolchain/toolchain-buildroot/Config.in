@@ -1,6 +1,18 @@
 # Config entries for internal toolchain backend
 
 if BR2_TOOLCHAIN_BUILDROOT
+
+config BR2_VENDOR
+	string "Toolchain vendor in GNU configuration name"
+	default "buildroot"
+	help
+	  The GNU build system identifies a machine using configuration name
+	  in the following format:
+	    <arch>-<vendor>-<kernel>-<os>
+	  This option lets you select the vendor part of that string.
+
+	  Usually it is best to stick with the default value of "buildroot".
+
 source "toolchain/kernel-headers/Config.in"
 source "toolchain/uClibc/Config.in"
 source "package/binutils/Config.in.host"

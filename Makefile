@@ -232,6 +232,7 @@ QUIET:=$(if $(findstring s,$(MAKEFLAGS)),-q)
 
 # Strip off the annoying quoting
 ARCH:=$(call qstrip,$(BR2_ARCH))
+VENDOR:=$(call qstrip,$(BR2_VENDOR))
 
 KERNEL_ARCH:=$(shell echo "$(ARCH)" | sed -e "s/-.*//" \
 	-e s/i.86/i386/ -e s/sun4u/sparc64/ \
