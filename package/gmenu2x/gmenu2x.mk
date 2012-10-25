@@ -13,4 +13,8 @@ ifeq ($(BR2_PACKAGE_LIBOPK),y)
 GMENU2X_DEPENDENCIES += libopk
 endif
 
+ifeq ($(BR2_PACKAGE_LIBXDGMIME),y)
+GMENU2X_DEPENDENCIES += libxdgmime
+endif
+
 $(eval $(autotools-package))
