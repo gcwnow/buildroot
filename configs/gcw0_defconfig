@@ -1,6 +1,5 @@
 BR2_mipsel=y
 BR2_mips_jz4770=y
-BR2_DL_DIR="$(BASE_DIR)/downloads"
 BR2_OPTIMIZE_2=y
 BR2_VENDOR="gcw0"
 BR2_UCLIBC_CONFIG="board/opendingux/gcw0/uclibc.config"
