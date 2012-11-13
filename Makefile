@@ -239,6 +239,7 @@ ARCH:=$(call qstrip,$(BR2_ARCH))
 ifeq ($(ARCH),xtensa)
 ARCH:=$(ARCH)_$(call qstrip,$(BR2_xtensa_core_name))
 endif
+VENDOR:=$(call qstrip,$(BR2_VENDOR))
 
 KERNEL_ARCH:=$(shell echo "$(ARCH)" | sed -e "s/-.*//" \
 	-e s/i.86/i386/ -e s/sun4u/sparc64/ \
