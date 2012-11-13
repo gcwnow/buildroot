@@ -1,0 +1,12 @@
+diff --git a/freedesktop.org.xml.in b/freedesktop.org.xml.in
+index cd72ed4..5eb5d89 100644
+--- a/freedesktop.org.xml.in
++++ b/freedesktop.org.xml.in
+@@ -1718,6 +1718,7 @@ command to generate the output files.
+     <_comment>Game Boy ROM</_comment>
+     <generic-icon name="application-x-executable"/>
+     <glob pattern="*.gb"/>
++    <glob pattern="*.gbc"/>
+   </mime-type>
+   <mime-type type="application/x-gba-rom">
+     <_comment>Game Boy Advance ROM</_comment>
