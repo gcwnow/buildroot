@@ -10,3 +10,10 @@ config BR2_PACKAGE_GMENU2X
 	  and the Dingoo A320/A330.
 
 	  http://projects.qi-hardware.com/index.php/p/gmenu2x
+
+if BR2_PACKAGE_GMENU2X
+
+config BR2_PACKAGE_GMENU2X_PLATFORM
+	string "Target platform"
+
+endif
