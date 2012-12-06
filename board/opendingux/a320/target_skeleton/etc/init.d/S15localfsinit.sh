@@ -3,7 +3,7 @@
 if [ -z "$1" ] || [ "x$1" = "xstart" ]; then
 
     mkdir -p /boot/local
-    for i in bin etc home lib sbin share; do
+    for i in bin etc home/apps lib sbin share; do
         mkdir -p /usr/local/$i
     done
 
