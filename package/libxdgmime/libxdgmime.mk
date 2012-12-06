@@ -4,7 +4,7 @@
 #
 #############################################################
 LIBXDGMIME_VERSION = master
-LIBXDGMIME_SITE = git://github.com/Ayla-/libxdgmime.git
+LIBXDGMIME_SITE = git://github.com/pcercuei/libxdgmime.git
 LIBXDGMIME_DEPENDENCIES = shared-mime-info
 LIBXDGMIME_INSTALL_STAGING = YES
 
