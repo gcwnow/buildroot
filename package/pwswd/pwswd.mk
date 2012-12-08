@@ -4,7 +4,7 @@
 #
 #############################################################
 PWSWD_VERSION = master
-PWSWD_SITE = git://github.com/Ayla-/pwswd.git
+PWSWD_SITE = git://github.com/pcercuei/pwswd.git
 PWSWD_DEPENDENCIES = alsa-lib libpng
 
 define PWSWD_BUILD_CMDS
