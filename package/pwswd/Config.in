@@ -6,3 +6,10 @@ config BR2_PACKAGE_PWSWD
 	  volume, TV-out and more by pressing the power slider plus a button.
 
 	  https://github.com/Ayla-/pwswd
+
+if BR2_PACKAGE_PWSWD
+
+config BR2_PACKAGE_PWSWD_MIXER
+	string "Volume mixer"
+
+endif

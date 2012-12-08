@@ -8,7 +8,8 @@ PWSWD_SITE = git://github.com/pcercuei/pwswd.git
 PWSWD_DEPENDENCIES = alsa-lib libpng
 
 define PWSWD_BUILD_CMDS
-	$(MAKE) CROSS_COMPILE="$(TARGET_CROSS)" -C $(@D)
+	$(MAKE) CROSS_COMPILE="$(TARGET_CROSS)" -C $(@D) \
+		CFLAGS="$(TARGET_CFLAGS) -DDEFAULT_MIXER=\\\"$(BR2_PACKAGE_PWSWD_MIXER)"\\\"
 endef
 
 define PWSWD_INSTALL_TARGET_CMDS
