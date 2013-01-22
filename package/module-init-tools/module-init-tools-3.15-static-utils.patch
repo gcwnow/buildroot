@@ -1,0 +1,29 @@
+diff -ur module-init-tools-3.15/Makefile.am module-init-tools-3.15-patched/Makefile.am
+--- module-init-tools-3.15/Makefile.am	2011-06-02 12:40:46.000000000 -0500
++++ module-init-tools-3.15-patched/Makefile.am	2013-01-21 20:46:57.184362623 -0600
+@@ -13,12 +13,16 @@
+ insmod_static_LDFLAGS = -static
+ # We don't want the $(zlib_flags) here: that makes a dynamic executable
+ insmod_static_LDADD = libmodtools.a
++rmmod_static_SOURCES = rmmod.c
++rmmod_static_LDFLAGS = -static
++rmmod_static_LDADD = libmodtools.a
+ 
+ EXTRA_insmod_SOURCES =
+ EXTRA_lsmod_SOURCES =
+ EXTRA_modprobe_SOURCES = 
+ EXTRA_rmmod_SOURCES =
+ EXTRA_insmod_static_SOURCES =
++EXTRA_rmmod_static_SOURCES =
+ EXTRA_depmod_SOURCES =
+ EXTRA_modinfo_SOURCES =
+ 
+@@ -50,7 +54,7 @@
+ 
+ sbin_PROGRAMS = insmod modprobe rmmod depmod modinfo
+ if BUILD_STATIC_UTILS
+-sbin_PROGRAMS += insmod.static
++sbin_PROGRAMS += insmod.static rmmod.static
+ endif
+ bin_PROGRAMS = lsmod
+ noinst_PROGRAMS=modindex
