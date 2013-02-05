@@ -1,0 +1,7 @@
+config BR2_PACKAGE_LIBMODPLUG
+	bool "libmodplug"
+	help
+	  Library to play lots of tracker formats (including MOD, S3M, XM) and
+	  also standard MIDI files.
+
+	  http://modplug-xmms.sourceforge.net/
