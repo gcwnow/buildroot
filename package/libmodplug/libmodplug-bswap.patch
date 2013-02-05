@@ -1,0 +1,32 @@
+diff -ru libmodplug-0.8.8.4.org/src/libmodplug/sndfile.h libmodplug-0.8.8.4/src/libmodplug/sndfile.h
+--- libmodplug-0.8.8.4.org/src/libmodplug/sndfile.h	2011-04-29 11:16:31.000000000 +0200
++++ libmodplug-0.8.8.4/src/libmodplug/sndfile.h	2013-02-05 14:35:36.000000000 +0100
+@@ -951,10 +951,12 @@
+ 
+ /* Swap bytes in 16 bit value.  */
+ #ifdef __GNUC__
+-# define bswap_16(x) \
++# ifndef bswap_16
++#  define bswap_16(x) \
+     (__extension__							      \
+      ({ unsigned short int __bsx = (x);					      \
+         ((((__bsx) >> 8) & 0xff) | (((__bsx) & 0xff) << 8)); }))
++# endif
+ #else
+ static __inline unsigned short int
+ bswap_16 (unsigned short int __bsx)
+@@ -965,11 +967,13 @@
+ 
+ /* Swap bytes in 32 bit value.  */
+ #ifdef __GNUC__
+-# define bswap_32(x) \
++# ifndef bswap_32
++#  define bswap_32(x) \
+     (__extension__							      \
+      ({ unsigned int __bsx = (x);					      \
+         ((((__bsx) & 0xff000000) >> 24) | (((__bsx) & 0x00ff0000) >>  8) |    \
+ 	 (((__bsx) & 0x0000ff00) <<  8) | (((__bsx) & 0x000000ff) << 24)); }))
++# endif
+ #else
+ static __inline unsigned int
+ bswap_32 (unsigned int __bsx)
