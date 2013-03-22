@@ -250,6 +250,7 @@ $(GCC_BUILD_DIR1)/.configured: $(GCC_DIR)/.patched
 	mkdir -p $(GCC_BUILD_DIR1)
 	(cd $(GCC_BUILD_DIR1); rm -rf config.cache; \
 		$(HOST_CONFIGURE_OPTS) \
+		MAKEINFO=missing \
 		$(GCC_DIR)/configure $(QUIET) \
 		--prefix=$(HOST_DIR)/usr \
 		--build=$(GNU_HOST_NAME) \
@@ -317,6 +318,7 @@ $(GCC_BUILD_DIR2)/.configured: $(GCC_DIR)/.patched
 	mkdir -p $(GCC_BUILD_DIR2)
 	(cd $(GCC_BUILD_DIR2); rm -rf config.cache; \
 		$(HOST_CONFIGURE_OPTS) \
+		MAKEINFO=missing \
 		$(GCC_DIR)/configure $(QUIET) \
 		--prefix=$(HOST_DIR)/usr \
 		--build=$(GNU_HOST_NAME) \
@@ -394,6 +396,7 @@ $(GCC_BUILD_DIR3)/.configured: $(GCC_SRC_DIR)/.patched $(GCC_STAGING_PREREQ)
 	ln -snf ../include/ $(HOST_DIR)/usr/$(GNU_TARGET_NAME)/sys-include
 	(cd $(GCC_BUILD_DIR3); rm -rf config.cache; \
 		$(HOST_CONFIGURE_OPTS) \
+		MAKEINFO=missing \
 		$(GCC_SRC_DIR)/configure $(QUIET) \
 		--prefix=$(HOST_DIR)/usr \
 		--build=$(GNU_HOST_NAME) \
