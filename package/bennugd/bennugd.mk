@@ -10,7 +10,6 @@
 
 BENNUGD_VERSION = master
 BENNUGD_SITE = git://github.com/gromv/bennugd_cmake.git
-#BENNUGD_CONF_OPT = -DTARGET_LINUX
 BENNUGD_DEPENDENCIES = libpng sdl sdl_mixer openssl
 BENNUGD_INSTALL_TARGET = YES
 
