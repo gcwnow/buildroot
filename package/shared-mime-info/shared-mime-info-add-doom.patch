@@ -1,0 +1,16 @@
+diff --git a/freedesktop.org.xml.in b/freedesktop.org.xml.in
+index 5eb5d89..7cca91d 100644
+--- a/freedesktop.org.xml.in
++++ b/freedesktop.org.xml.in
+@@ -1506,6 +1506,11 @@ command to generate the output files.
+       <match offset="5:100" type="string" value="&lt;shape"/>
+     </magic>
+   </mime-type>
++  <mime-type type="application/x-doom">
++    <_comment>Doom WAD</_comment>
++    <generic-icon name="package-x-generic"/>
++    <glob pattern="*.wad"/>
++  </mime-type>
+   <mime-type type="application/x-dvi">
+     <_comment>TeX DVI document</_comment>
+     <generic-icon name="x-office-document"/>
