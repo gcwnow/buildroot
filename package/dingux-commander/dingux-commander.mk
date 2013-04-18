@@ -14,6 +14,7 @@ define DINGUX_COMMANDER_BUILD_CMDS
 endef
 
 ifeq ($(BR2_PACKAGE_GMENU2X),y)
+DINGUX_COMMANDER_DEPENDENCIES += gmenu2x
 define DINGUX_COMMANDER_INSTALL_TARGET_GMENU2X
 	$(INSTALL) -m 0644 -D package/dingux-commander/gmenu2x $(TARGET_DIR)/usr/share/gmenu2x/sections/applications/25_DinguxCommander
 endef
