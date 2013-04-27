@@ -9,6 +9,9 @@ config BR2_PACKAGE_PWSWD
 
 if BR2_PACKAGE_PWSWD
 
+config BR2_PACKAGE_PWSWD_PLATFORM
+	string "Target platform"
+
 config BR2_PACKAGE_PWSWD_MIXER
 	string "Volume mixer"
 
