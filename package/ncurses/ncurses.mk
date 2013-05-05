@@ -50,6 +50,10 @@ ifneq ($(BR2_ENABLE_DEBUG),y)
 NCURSES_CONF_OPT += --without-debug
 endif
 
+ifeq ($(BR2_TOOLCHAIN_BUILDROOT_WCHAR),y)
+NCURSES_CONF_OPT += --enable-widec
+endif
+
 
 define NCURSES_BUILD_CMDS
 	$(MAKE1) -C $(@D) DESTDIR=$(STAGING_DIR)
@@ -85,19 +89,19 @@ ifneq ($(BR2_PREFER_STATIC_LIB),y)
 
 ifeq ($(BR2_PACKAGE_NCURSES_TARGET_PANEL),y)
 define NCURSES_INSTALL_TARGET_PANEL
-	cp -dpf $(NCURSES_DIR)/lib/libpanel.so* $(TARGET_DIR)/usr/lib/
+	cp -dpf $(NCURSES_DIR)/lib/libpanel*.so* $(TARGET_DIR)/usr/lib/
 endef
 endif
 
 ifeq ($(BR2_PACKAGE_NCURSES_TARGET_FORM),y)
 define NCURSES_INSTALL_TARGET_FORM
-	cp -dpf $(NCURSES_DIR)/lib/libform.so* $(TARGET_DIR)/usr/lib/
+	cp -dpf $(NCURSES_DIR)/lib/libform*.so* $(TARGET_DIR)/usr/lib/
 endef
 endif
 
 ifeq ($(BR2_PACKAGE_NCURSES_TARGET_MENU),y)
 define NCURSES_INSTALL_TARGET_MENU
-	cp -dpf $(NCURSES_DIR)/lib/libmenu.so* $(TARGET_DIR)/usr/lib/
+	cp -dpf $(NCURSES_DIR)/lib/libmenu*.so* $(TARGET_DIR)/usr/lib/
 endef
 endif
 
@@ -105,7 +109,7 @@ endif
 
 define NCURSES_INSTALL_TARGET_CMDS
 	mkdir -p $(TARGET_DIR)/usr/lib
-	$(if $(BR2_PREFER_STATIC_LIB),,cp -dpf $(NCURSES_DIR)/lib/libncurses.so* $(TARGET_DIR)/usr/lib/)
+	$(if $(BR2_PREFER_STATIC_LIB),,cp -dpf $(NCURSES_DIR)/lib/libncurses*.so* $(TARGET_DIR)/usr/lib/)
 	$(NCURSES_INSTALL_TARGET_PANEL)
 	$(NCURSES_INSTALL_TARGET_FORM)
 	$(NCURSES_INSTALL_TARGET_MENU)
