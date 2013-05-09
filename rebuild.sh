@@ -11,7 +11,7 @@ sed -ie 's%^BR2_HOST_DIR=.*$%BR2_HOST_DIR="/opt/gcw0-toolchain"%' .config
 
 # Clear the install location.
 echo "Clearing install location..."
-rm -rf /opt/gcw0-toolchain
+rm -rf /opt/gcw0-toolchain/*
 
 # Clear the build location.
 echo "Clearing build location..."
