@@ -40,7 +40,10 @@ SDL_CONF_OPT+=--enable-video-x11=no
 endif
 
 ifeq ($(BR2_PACKAGE_TSLIB),y)
-SDL_DEPENDENCIES += tslib
+# OpenDingux hack: We've got tslib to make porting easier, but we've got no
+#                  touch screen, so having SDL try to use tslib is pointless.
+#SDL_DEPENDENCIES += tslib
+SDL_CONF_OPT+=--enable_input_tslib=no
 endif
 
 ifeq ($(BR2_PACKAGE_ALSA_LIB),y)
