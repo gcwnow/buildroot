@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 # Get the latest version.
 echo "Updating local git repository..."
