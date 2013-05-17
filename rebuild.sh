@@ -21,6 +21,7 @@ rm -rf output/
 rm -f dl/dingux-commander-*.tar.gz
 rm -f dl/gmenu2x-*.tar.gz
 rm -f dl/libopk-*.tar.gz
+rm -f dl/libini-*.tar.gz
 rm -f dl/libxdgmime-*.tar.gz
 rm -f dl/pyclock-*.tar.gz
 rm -f dl/pwswd-*.tar.gz
