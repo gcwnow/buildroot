@@ -1,0 +1,13 @@
+diff --git a/src/surface.cpp b/src/surface.cpp
+index a4cdac8..6897eaa 100644
+--- a/src/surface.cpp
++++ b/src/surface.cpp
+@@ -43,7 +43,7 @@ RGBAColor strtorgba(const string &strColor) {
+ Surface *Surface::openOutputSurface(int width, int height, int bitsperpixel) {
+ 	SDL_ShowCursor(SDL_DISABLE);
+ 	SDL_Surface *raw = SDL_SetVideoMode(
+-		width, height, bitsperpixel, SDL_HWSURFACE | SDL_DOUBLEBUF);
++		width, height, bitsperpixel, SDL_SWSURFACE);
+ 	return raw ? new Surface(raw, false) : NULL;
+ }
+ 
