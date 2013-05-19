@@ -34,7 +34,7 @@
 
 # Launch the main application
 tty1::respawn:/usr/sbin/frontend_start
-ttyS0::respawn:/sbin/getty -n -l /usr/sbin/rootlogin -L ttyS0 115200 vt100
+ttyS2::respawn:/sbin/getty -n -l /usr/sbin/rootlogin -L ttyS2 57600 vt100
 
 # Stuff to do for the 3-finger salute
 ::ctrlaltdel:/sbin/reboot
