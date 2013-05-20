@@ -10,6 +10,9 @@ DEV="/dev/$1"
 if [ "$1" = "mmcblk1p1" ]; then
     MNT="/media/sdcard"
 elif [ "$1" = "mmcblk0p1" ]; then
+    if ! [ -f /etc/local/mount_system ]; then
+        exit 0
+    fi
     MNT="/media/system"
 elif [ "$1" = "mmcblk0p2" ]; then
     MNT="/media/data"
