@@ -1,16 +1,30 @@
 #!/bin/sh
 
 if [ "$SUBSYSTEM" != "block" ]; then
-    echo "WARNING: trying to mount a non-block device!"
+    echo "Refusing to mount non-block device: $1"
+    exit 1
+fi
 
-elif [ "$ACTION" = "remove" ]; then
-    if [ `mount |grep "$1 "` ]; then
+DEV="/dev/$1"
+
+if [ "$1" = "mmcblk1p1" ]; then
+    MNT="/media/sdcard"
+elif [ "$1" = "mmcblk0p1" ]; then
+    MNT="/media/system"
+elif [ "$1" = "mmcblk0p2" ]; then
+    MNT="/media/data"
+else
+    MNT="/media/$1"
+fi
+
+if [ "$ACTION" = "remove" ]; then
+    if [ `mount |grep "$DEV "` ]; then
         echo "WARNING: SD card pulled out without unmounting first!"
-        umount -f /dev/$1
+        umount -f $DEV
     fi
-    rmdir /media/$1
+    rmdir $MNT
 
 elif ! [ `ls /sys/class/block/${1}?* 2>/dev/null` ]; then
-    mkdir /media/$1 && ( mount /dev/$1 /media/$1 -o $2 || rmdir /media/$1 )
+    mkdir $MNT && ( mount $DEV $MNT -o $2 || rmdir $MNT )
 
 fi
