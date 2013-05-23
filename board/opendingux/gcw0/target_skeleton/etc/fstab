@@ -1,9 +1,9 @@
 # /etc/fstab: static file system information.
 #
-# <file system> <mount pt>     <type>   <options>                 <dump> <pass>
-proc            /proc          proc     defaults                  0      0
-devpts          /dev/pts       devpts   defaults,gid=5,mode=620   0      0
-tmpfs           /var           tmpfs    defaults                  0      0
-tmpfs           /media         tmpfs    size=1,mode=0755          0      0
-tmpfs           /mnt           tmpfs    size=1,mode=0755          0      0
-sysfs           /sys           sysfs    defaults                  0      0
+# <file system>	<mount pt>	<type>	<options>		<dump>	<pass>
+proc		/proc		proc	defaults		0	0
+devpts		/dev/pts	devpts	gid=5,mode=620		0	0
+tmpfs		/var		tmpfs	defaults		0	0
+tmpfs		/media		tmpfs	size=1,mode=0755	0	0
+tmpfs		/mnt		tmpfs	size=1,mode=0755	0	0
+sysfs		/sys		sysfs	defaults		0	0
