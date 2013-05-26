@@ -1,6 +1,7 @@
 config BR2_PACKAGE_LIBOPK
 	bool "libopk"
 	select BR2_PACKAGE_ZLIB
+	select BR2_PACKAGE_LIBINI
 	help
 	  Library to handle the OPK packages.
 
