@@ -348,6 +348,7 @@ source "package/libarchive/Config.in"
 source "package/lzo/Config.in"
 source "package/zlib/Config.in"
 source "package/libzip/Config.in"
+source "package/physfs/Config.in"
 endmenu
 
 menu "Crypto"
