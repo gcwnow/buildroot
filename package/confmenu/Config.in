@@ -1,0 +1,10 @@
+config BR2_PACKAGE_CONFMENU
+	bool "confmenu"
+	select BR2_PACKAGE_LIBCMENU
+	select BR2_PACKAGE_LIBXML2
+	select BR2_PACKAGE_SDL
+	select BR2_PACKAGE_SDL_IMAGE
+	help
+	  XML-driven configuration menu based on libcmenu.
+
+	  https://github.com/pcercuei/confmenu

@@ -560,6 +560,7 @@ endmenu
 
 menu "Miscellaneous"
 source "package/collectd/Config.in"
+source "package/confmenu/Config.in"
 source "package/empty/Config.in"
 source "package/gmenu2x/Config.in"
 source "package/googlefontdirectory/Config.in"
