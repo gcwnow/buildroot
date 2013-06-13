@@ -10,7 +10,7 @@ config BR2_PACKAGE_LIBEDJE
 	select BR2_PACKAGE_LIBECORE_EVAS
 	select BR2_PACKAGE_LIBEMBRYO
 	select BR2_PACKAGE_LIBEVAS
-	select BR2_PACKAGE_LUA
+	select BR2_PACKAGE_LUA if ! BR2_PACKAGE_LUAJIT
 	depends on !BR2_avr32 # libevas
 	depends on BR2_TOOLCHAIN_HAS_THREADS # libevas
 	help
