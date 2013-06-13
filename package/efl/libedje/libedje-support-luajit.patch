@@ -1,0 +1,22 @@
+diff --git a/configure.ac b/configure.ac
+index 199f042..ab925e0 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -235,11 +235,12 @@ AC_SUBST(EFL_EDJE_BUILD)
+ have_lua="yes"
+ requirement_lua=""
+ lua_libs=""
+-PKG_CHECK_MODULES([LUA], [lua >= 5.1.0], requirement_lua="lua",
+-   [PKG_CHECK_MODULES([LUA], [lua5.1 >= 5.1.0], requirement_lua="lua5.1",
+-      [PKG_CHECK_MODULES([LUA], [lua-5.1 >= 5.1.0], requirement_lua="lua-5.1",
+-         [PKG_CHECK_MODULES([LUA], [lua51 >= 5.1.0], requirement_lua="lua51",
+-            [have_lua="no"])])])])
++PKG_CHECK_MODULES([LUA], [luajit >= 2.0.0], requirement_lua="luajit",
++   [PKG_CHECK_MODULES([LUA], [lua >= 5.1.0], requirement_lua="lua",
++      [PKG_CHECK_MODULES([LUA], [lua5.1 >= 5.1.0], requirement_lua="lua5.1",
++         [PKG_CHECK_MODULES([LUA], [lua-5.1 >= 5.1.0], requirement_lua="lua-5.1",
++            [PKG_CHECK_MODULES([LUA], [lua51 >= 5.1.0], requirement_lua="lua51",
++               [have_lua="no"])])])])])
+ 
+ if test "x${have_lua}" = "xno" ; then
+    AC_MSG_CHECKING([whether lua_newstate() is in liblua])

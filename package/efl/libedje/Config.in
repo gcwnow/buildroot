@@ -6,7 +6,7 @@ config BR2_PACKAGE_LIBEDJE
 	select BR2_PACKAGE_LIBECORE_EVAS
 	select BR2_PACKAGE_LIBEMBRYO
 	select BR2_PACKAGE_LIBEVAS
-	select BR2_PACKAGE_LUA
+	select BR2_PACKAGE_LUA if ! BR2_PACKAGE_LUAJIT
 	help
 	  A graphical layout and animation library for animated
 	  resizable, compressed and scalable themes.
