@@ -1,0 +1,10 @@
+config BR2_PACKAGE_LIBCMENU
+	bool "libcmenu"
+	select BR2_PACKAGE_LIBERATION
+	select BR2_PACKAGE_LIBINI
+	select BR2_PACKAGE_SDL
+	select BR2_PACKAGE_SDL_TTF
+	help
+	  Library to easily create configuration menus from C
+
+	  https://github.com/pcercuei/libcmenu
