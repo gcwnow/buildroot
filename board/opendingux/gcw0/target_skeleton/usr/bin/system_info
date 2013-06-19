@@ -25,3 +25,6 @@ Processor: $PROCESSOR
 
 Total RAM for applications: $RAM
 $SWAP"
+
+echo "Network interfaces:"
+ip -o -4 address list | awk '{if ($2 != "lo") { printf "%7s %s\n", $2, gensub("/.*$", "", "g", $4) ; outlines++ } } END { if (outlines == 0) print " (none)" }'
