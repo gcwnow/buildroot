@@ -13,6 +13,7 @@ endif
 source "package/infozip/Config.in"
 source "package/lzop/Config.in"
 source "package/lzma/Config.in"
+source "package/unrar/Config.in"
 source "package/xz/Config.in"
 endmenu
 
