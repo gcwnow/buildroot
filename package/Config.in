@@ -39,6 +39,7 @@ endif
 source "package/infozip/Config.in"
 source "package/lzip/Config.in"
 source "package/lzop/Config.in"
+source "package/unrar/Config.in"
 source "package/xz/Config.in"
 endmenu
 
