@@ -4,7 +4,7 @@
 #
 #############################################################
 PWSWD_VERSION = master
-PWSWD_SITE = git://github.com/pcercuei/pwswd.git
+PWSWD_SITE = git://github.com/gcwnow/pwswd.git
 PWSWD_DEPENDENCIES = alsa-lib libpng libini
 
 PWSWD_MAKE_ENV = CFLAGS="$(TARGET_CFLAGS)" LDFLAGS="$(TARGET_LDFLAGS)" \
