@@ -150,7 +150,6 @@ endif
 source "package/x11r7/Config.in"
 
 comment "X libraries and helper libraries"
-source "package/liberation/Config.in"
 source "package/libsexy/Config.in"
 
 comment "X Window managers"
@@ -179,6 +178,10 @@ source "package/x11vnc/Config.in"
 source "package/xstroke/Config.in"
 source "package/xterm/Config.in"
 source "package/xvkbd/Config.in"
+
+comment "Fonts"
+source "package/liberation/Config.in"
+source "package/dejavu-fonts/Config.in"
 endmenu
 
 menu "Filesystem and flash utilities"

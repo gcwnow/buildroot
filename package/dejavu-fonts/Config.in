@@ -1,0 +1,17 @@
+config BR2_PACKAGE_DEJAVU_FONTS
+ bool "dejavu fonts"
+ select BR2_PACKAGE_DEJAVU_FONTS_SANS if !BR2_PACKAGE_DEJAVU_FONTS_SERIF
+ help
+  The DejaVu fonts are a font family based on the Vera Fonts.
+
+  http://dejavu-fonts.org/wiki/Main_Page
+
+if BR2_PACKAGE_DEJAVU_FONTS
+
+config BR2_PACKAGE_DEJAVU_FONTS_SANS
+	bool "Install Sans fonts"
+
+config BR2_PACKAGE_DEJAVU_FONTS_SERIF
+	bool "Install Serif fonts"
+
+endif
