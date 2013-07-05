@@ -2,6 +2,9 @@
 
 export HOME=`cat /etc/passwd |head -1 |cut -d':' -f 6`
 
+# Restore the framebuffer to a working state
+/usr/sbin/unlockvt
+
 # Disactivate the console on framebuffer
 echo 0 > /sys/devices/virtual/vtconsole/vtcon1/bind
 
