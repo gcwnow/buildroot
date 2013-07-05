@@ -5,7 +5,7 @@
 #############################################################
 LIBCMENU_VERSION = master
 LIBCMENU_SITE = git://github.com/pcercuei/libcmenu.git
-LIBCMENU_DEPENDENCIES = liberation libini sdl sdl_ttf
+LIBCMENU_DEPENDENCIES = libini sdl sdl_ttf dejavu-fonts
 LIBCMENU_INSTALL_STAGING = YES
 
 LIBCMENU_MAKE_ENV = CFLAGS="$(TARGET_CFLAGS)" \

@@ -1,9 +1,9 @@
 config BR2_PACKAGE_LIBCMENU
 	bool "libcmenu"
-	select BR2_PACKAGE_LIBERATION
 	select BR2_PACKAGE_LIBINI
 	select BR2_PACKAGE_SDL
 	select BR2_PACKAGE_SDL_TTF
+	select BR2_PACKAGE_DEJAVU_FONTS
 	help
 	  Library to easily create configuration menus from C
 
