@@ -63,12 +63,14 @@ config BR2_ARCH
 	default "mipsel"	if BR2_mipsel
 	default "mips64"	if BR2_mips64
 	default "mips64el"	if BR2_mips64el
-	default "mips32"	if BR2_mips_jz4740
-	default "mips32r2"	if BR2_mips_jz4770
 
 config BR2_ENDIAN
 	default "LITTLE"	if BR2_mipsel || BR2_mips64el
 	default "BIG" 	    	if BR2_mips || BR2_mips64
+
+config BR2_GCC_TARGET_ARCH
+	default "mips32"	if BR2_mips_jz4740
+	default "mips32r2"	if BR2_mips_jz4770
 
 config BR2_GCC_TARGET_TUNE
 	default "mips1"		if BR2_mips_1
