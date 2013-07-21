@@ -40,7 +40,6 @@ MESA3D_ETNA_VIV_DEPENDENCIES = \
 	host-bison \
 	host-pkgconf \
 	host-python \
-	host-libxml2 \
-	xlib_libXxf86vm
+	host-libxml2
 
 $(eval $(autotools-package))
