@@ -11,15 +11,8 @@ LIBDRM_LICENSE = MIT
 
 LIBDRM_INSTALL_STAGING = YES
 
-LIBDRM_DEPENDENCIES = \
-	xproto_glproto \
-	xproto_xf86vidmodeproto \
-	xlib_libXxf86vm \
-	xlib_libXmu \
-	xlib_libpciaccess \
-	xproto_dri2proto \
-	xlib_libpthread-stubs \
-	host-pkgconf
+LIBDRM_DEPENDENCIES = pthread-stubs host-pkgconf
+LIBDRM_CONF_OPT = --disable-vmwgfx --disable-nouveau --disable-manpages
 
 ifeq ($(BR2_PACKAGE_XDRIVER_XF86_VIDEO_INTEL),y)
 LIBDRM_CONF_OPT += --enable-intel
