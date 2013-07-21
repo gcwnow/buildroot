@@ -1,0 +1,32 @@
+From 962204961def009610e60b23d40a22f064214dc7 Mon Sep 17 00:00:00 2001
+From: Mike Stroyan <mike@LunarG.com>
+Date: Mon, 18 Mar 2013 19:34:35 +0000
+Subject: configure.ac: Build dricommon for gallium swrast
+
+When building dri-swrast, use gallium_check_st to set HAVE_COMMON_DRI.
+Commit 07f2dee7 added setting of HAVE_COMMON_DRI in gallium_check_st.
+But the dri-swrast case did not use gallium_check_st.
+So dri/common was still not built.
+
+v2: set HAVE_COMMON_DRI=yes instead of using gallium_check_st
+
+NOTE: This is a candidate for the 9.1 branch.
+      (Depends on 7de78ce5 and 07f2dee)
+
+Bugzilla: https://bugs.freedesktop.org/show_bug.cgi?id=61821
+Signed-off-by: Andreas Boll <andreas.boll.dev@gmail.com>
+---
+diff --git a/configure.ac b/configure.ac
+index 521331b..bccab0a 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1812,6 +1812,7 @@ if test "x$with_gallium_drivers" != x; then
+ 
+             if test "x$enable_dri" = xyes; then
+                 GALLIUM_TARGET_DIRS="$GALLIUM_TARGET_DIRS dri-swrast"
++                HAVE_COMMON_DRI=yes
+             fi
+             if test "x$enable_vdpau" = xyes; then
+                 GALLIUM_TARGET_DIRS="$GALLIUM_TARGET_DIRS vdpau-softpipe"
+--
+cgit v0.9.0.2-2-gbebe

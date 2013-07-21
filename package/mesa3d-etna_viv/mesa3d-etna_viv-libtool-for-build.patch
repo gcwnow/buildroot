@@ -1,0 +1,39 @@
+diff -ru mesa3d.org/configure.ac mesa3d-etna_viv-master/configure.ac
+--- mesa3d.org/configure.ac	2013-07-20 20:25:32.000000000 +0200
++++ mesa3d-etna_viv-master/configure.ac	2013-07-21 00:07:21.000000000 +0200
+@@ -119,6 +119,8 @@
+     fi
+ fi
+ 
++AC_ARG_VAR(LIBTOOL_FOR_BUILD, Path to the libtool instance to be used for building native executables during cross compilation.)
++
+ dnl Make sure the pkg-config macros are defined
+ m4_ifndef([PKG_PROG_PKG_CONFIG],
+     [m4_fatal([Could not locate the pkg-config autoconf macros.
+diff -ru mesa3d.org/src/glsl/builtin_compiler/Makefile.am mesa3d-etna_viv-master/src/glsl/builtin_compiler/Makefile.am
+--- mesa3d.org/src/glsl/builtin_compiler/Makefile.am	2013-07-20 20:25:33.000000000 +0200
++++ mesa3d-etna_viv-master/src/glsl/builtin_compiler/Makefile.am	2013-07-20 23:24:46.000000000 +0200
+@@ -37,6 +37,7 @@
+ proxyCXXFLAGS = @CXXFLAGS_FOR_BUILD@
+ proxyLD = @LD_FOR_BUILD@
+ proxyLDFLAGS = @LDFLAGS_FOR_BUILD@
++proxyLIBTOOL = @LIBTOOL_FOR_BUILD@
+ AM_CFLAGS += $(DEFINES_FOR_BUILD)
+ else
+ proxyCC = @CC@
+@@ -47,6 +48,7 @@
+ proxyCXXFLAGS = @CXXFLAGS@
+ proxyLD = @LD@
+ proxyLDFLAGS = @LDFLAGS@
++proxyLIBTOOL = @LIBTOOL@
+ AM_CFLAGS += $(DEFINES)
+ endif
+ 
+@@ -58,6 +60,7 @@
+ CXXFLAGS = $(proxyCXXFLAGS)
+ LD = $(proxyLD)
+ LDFLAGS = $(proxyLDFLAGS)
++LIBTOOL = $(proxyLIBTOOL)
+ 
+ AM_CXXFLAGS = $(AM_CFLAGS)
+ 
