@@ -18,13 +18,17 @@ echo "Clearing build location..."
 rm -rf output/
 
 # Remove non-versioned packages: they might have been updated since the last build.
+rm -f dl/bennugd-*.tar.gz
 rm -f dl/dingux-commander-*.tar.gz
+rm -f dl/etna_viv-*.tar.gz
 rm -f dl/gmenu2x-*.tar.gz
 rm -f dl/libopk-*.tar.gz
 rm -f dl/libini-*.tar.gz
 rm -f dl/libxdgmime-*.tar.gz
+rm -f dl/mesa3d-etna_viv-*.tar.gz
 rm -f dl/pyclock-*.tar.gz
 rm -f dl/pwswd-*.tar.gz
+rm -f dl/shared-mime-info-*.tar.gz
 
 # Perform the build.
 echo "Starting build..."
