@@ -382,11 +382,20 @@ config BR2_PACKAGE_XSERVER_tinyx
 config BR2_PACKAGE_PTHREAD_STUBS
 	bool "pthread-stubs option has been renamed"
 	select BR2_LEGACY
-	select BR2_PACKAGE_XLIB_LIBPTHREAD_STUBS
-	depends on BR2_PACKAGE_XORG7
+	select BR2_PACKAGE_LIBPTHREAD_STUBS
 	help
 	  For consistency reason, the pthread-stubs package has been
-	  renamed to xlib_libpthread-stubs.
+	  renamed to libpthread-stubs.
+
+config BR2_PACKAGE_XLIB_LIBPTHREAD_STUBS
+	bool "xlib-libpthread-stubs option has been renamed"
+	depends on BR2_PACKAGE_XORG7
+	select BR2_LEGACY
+	select BR2_PACKAGE_LIBPTHREAD_STUBS
+	help
+	  The pthread stubs do not depend on X11 nor Xlib. Thus the
+	  package has been renamed
+	  BR2_PACKAGE_LIBPTHREAD_STUBS
 
 ###############################################################################
 comment "Legacy options removed in 2012.08"
