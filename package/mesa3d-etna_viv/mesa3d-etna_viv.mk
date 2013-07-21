@@ -14,7 +14,6 @@ MESA3D_ETNA_VIV_CONF_ENV = \
 	LEX="$(HOST_DIR)/usr/bin/flex" \
 	YACC="$(HOST_DIR)/usr/bin/bison -y" \
 	LIBTOOL_FOR_BUILD="$(HOST_DIR)/usr/bin/libtool" \
-	PKG_CONFIG="$(HOST_DIR)/usr/bin/pkg-config" \
 	PYTHON2="$(HOST_DIR)/usr/bin/python2" \
 	ETNA_LIBS="$(STAGING_DIR)/usr/lib/libetnaviv.a"
 
