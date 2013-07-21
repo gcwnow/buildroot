@@ -18,6 +18,10 @@ MESA3D_ETNA_VIV_CONF_ENV = \
 	PYTHON2="$(HOST_DIR)/usr/bin/python2" \
 	ETNA_LIBS="$(STAGING_DIR)/usr/lib/libetnaviv.a"
 
+ifneq ($(BR2_PACKAGE_XLIB_LIBX11),y)
+MESA3D_ETNA_VIV_CONF_ENV += CFLAGS="$(TARGET_CFLAGS) -DMESA_EGL_NO_X11_HEADERS"
+endif
+
 MESA3D_ETNA_VIV_CONF_OPT = \
 	--enable-gles1 \
 	--enable-gles2 \
