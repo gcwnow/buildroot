@@ -14,7 +14,7 @@ ifeq ($(BR2_PACKAGE_ETNA_VIV_ABIV2),y)
 ETNA_VIV_ABI = v2
 else ifeq ($(BR2_PACKAGE_ETNA_VIV_ABIV4),y)
 ETNA_VIV_ABI = v4
-else
+else ifeq ($(BR2_PACKAGE_ETNA_VIV),y)
 $(error No ABI version selected)
 endif
 
