@@ -8,14 +8,8 @@ LIBDRM_SOURCE = libdrm-$(LIBDRM_VERSION).tar.bz2
 LIBDRM_SITE = http://dri.freedesktop.org/libdrm/
 LIBDRM_INSTALL_STAGING = YES
 
-LIBDRM_DEPENDENCIES = \
-	xproto_glproto \
-	xproto_xf86vidmodeproto \
-	xlib_libXxf86vm \
-	xlib_libXmu \
-	xproto_dri2proto \
-	pthread-stubs \
-	host-pkgconf
+LIBDRM_DEPENDENCIES = pthread-stubs host-pkgconf
+LIBDRM_CONF_OPT = --disable-vmwgfx --disable-nouveau --disable-manpages
 
 ifeq ($(BR2_PACKAGE_XDRIVER_XF86_VIDEO_INTEL),y)
 LIBDRM_CONF_OPT += --enable-intel

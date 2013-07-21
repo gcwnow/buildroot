@@ -1,12 +1,6 @@
 config BR2_PACKAGE_LIBDRM
 	bool "libdrm"
-	depends on BR2_PACKAGE_XORG7
 	depends on BR2_LARGEFILE
-	select BR2_PACKAGE_XPROTO_GLPROTO
-	select BR2_PACKAGE_XPROTO_XF86VIDMODEPROTO
-	select BR2_PACKAGE_XLIB_LIBXXF86VM
-	select BR2_PACKAGE_XLIB_LIBXMU
-	select BR2_PACKAGE_XPROTO_DRI2PROTO
 	select BR2_PACKAGE_PTHREAD_STUBS
 	# libatomic_ops is only available on a subset of the supported
 	# architectures, and we make the assumption that the intel
