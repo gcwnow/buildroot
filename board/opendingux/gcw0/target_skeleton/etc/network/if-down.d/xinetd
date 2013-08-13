@@ -1,0 +1,9 @@
+#!/bin/sh
+
+[ "$IFACE" != "lo" ] || exit 0
+
+if [ "$IFACE" == "usb0" ] ; then
+	start-stop-daemon -K -q -p /var/run/xinetd-usb0.pid
+else
+	start-stop-daemon -K -q -p /var/run/xinetd.pid
+fi
