@@ -78,11 +78,25 @@ ifneq ($(BR2_PACKAGE_DROPBEAR_LASTLOG),y)
 DROPBEAR_CONF_OPT += --disable-lastlog
 endif
 
+ifeq ($(BR2_PACKAGE_DROPBEAR_INSTALL_INIT),y)
+INSTALL_DROPBEAR_INIT=[ -f $(TARGET_DIR)/etc/init.d/S50dropbear ] || \
+					  $(INSTALL) -m 0755 -D package/dropbear/S50dropbear \
+					  $(TARGET_DIR)/etc/init.d/S50dropbear
+endif
+
 define DROPBEAR_INSTALL_TARGET_CMDS
 	$(INSTALL) -m 755 $(@D)/dropbearmulti $(TARGET_DIR)/usr/sbin/dropbear
 	for f in $(DROPBEAR_TARGET_BINS); do \
 		ln -snf ../sbin/dropbear $(TARGET_DIR)/usr/bin/$$f ; \
 	done
+
+	$(INSTALL_DROPBEAR_INIT)
+endef
+
+define DROPBEAR_UNINSTALL_TARGET_CMDS
+	rm -f $(TARGET_DIR)/usr/sbin/dropbear
+	rm -f $(addprefix $(TARGET_DIR)/usr/bin/, $(DROPBEAR_TARGET_BINS))
+	rm -f $(TARGET_DIR)/etc/init.d/S50dropbear
 endef
 
 $(eval $(autotools-package))
