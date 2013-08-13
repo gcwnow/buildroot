@@ -27,8 +27,7 @@
 
 ::sysinit:/bin/hostname -F /etc/hostname
 
-# Start mdev
-::sysinit:/bin/echo /sbin/mdev > /proc/sys/kernel/hotplug
+# Create the initial /dev tree with mdev
 ::sysinit:/sbin/mdev -s
 
 # now run any rc scripts
