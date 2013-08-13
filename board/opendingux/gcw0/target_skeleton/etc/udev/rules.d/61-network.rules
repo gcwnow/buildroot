@@ -1,0 +1,6 @@
+SUBSYSTEM!="net", GOTO="net_end"
+
+ACTION=="add", RUN+="/sbin/ifup %k"
+ACTION=="remove", RUN+="/sbin/ifdown %k"
+
+LABEL="net_end"
