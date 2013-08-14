@@ -240,6 +240,7 @@ endmenu
 source "package/freescale-imx/Config.in"
 source "package/a10disp/Config.in"
 source "package/acpid/Config.in"
+source "package/buteo-mtp/Config.in"
 source "package/cdrkit/Config.in"
 source "package/dbus/Config.in"
 source "package/dbus-glib/Config.in"
