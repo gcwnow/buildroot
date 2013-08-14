@@ -15,7 +15,7 @@
 
 # Startup the system
 ::sysinit:/bin/mount -o size=64k,mode=0755 -t tmpfs tmpfs /dev
-::sysinit:/bin/mkdir -p /dev/pts /dev/shm
+::sysinit:/bin/mkdir -p /dev/pts /dev/shm /dev/mtp
 ::sysinit:/bin/mknod /dev/null c 1 3
 ::sysinit:/bin/mknod /dev/zero c 1 5
 ::sysinit:/bin/mknod /dev/console c 5 1
