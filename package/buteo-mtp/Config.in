@@ -1,0 +1,10 @@
+config BR2_PACKAGE_BUTEO_MTP
+	bool "buteo-mtp"
+	depends on BR2_PACKAGE_QT_XML
+	help
+	  Media Transfer Protocol (MTP) stack from Meego
+
+	  https://github.com/pcercuei/buteo-mtp
+
+comment "buteo-mtp depends on QT xml module"
+	depends on !BR2_PACKAGE_QT_XML
