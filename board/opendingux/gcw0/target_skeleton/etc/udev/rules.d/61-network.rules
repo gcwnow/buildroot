@@ -1,5 +1,9 @@
 SUBSYSTEM!="net", GOTO="net_end"
 
+# We don't want the wireless interfaces to be configured as soon as plugged
+# or when the device starts; the user should enable those when needed.
+KERNEL=="wlan[0-9]*", GOTO="net_end"
+
 ACTION=="add", RUN+="/sbin/ifup %k"
 ACTION=="remove", RUN+="/sbin/ifdown %k"
 
