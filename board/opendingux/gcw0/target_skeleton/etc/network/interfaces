@@ -12,3 +12,7 @@ iface usb0 inet static
 # Ethernet for QEMU
 auto eth0
 	iface eth0 inet dhcp
+
+# WiFi interface
+allow-hotplug wlan0
+	iface wlan0 inet manual

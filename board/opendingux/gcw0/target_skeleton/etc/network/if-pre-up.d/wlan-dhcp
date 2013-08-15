@@ -1,0 +1,26 @@
+#!/bin/sh
+
+case "$IFACE" in
+	wlan[0-9])
+		;;
+	*)
+		exit 0
+		;;
+esac
+
+WLAN_DHCP_RETRIES=10
+CONF_FILE=/etc/local/network/config-${IFACE}.conf
+PIDFILE=/var/run/udhcpc_${IFACE}.pid
+
+if [ -f $CONF_FILE ] ; then
+	. $CONF_FILE
+fi
+
+if [ -f "$PIDFILE" ] ; then
+	/sbin/start-stop-daemon -K -q -p "$PIDFILE"
+fi
+
+/sbin/udhcpc -i "$IFACE" -n -R -S -t "$WLAN_DHCP_RETRIES" -p "$PIDFILE"
+RET=$?
+
+exit $RET
