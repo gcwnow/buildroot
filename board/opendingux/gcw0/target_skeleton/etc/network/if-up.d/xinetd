@@ -2,10 +2,5 @@
 
 [ "$IFACE" != "lo" ] || exit 0
 
-if [ "$IFACE" == "usb0" ] ; then
-	/sbin/start-stop-daemon -S -q -x /usr/sbin/xinetd -- \
-		-f /etc/xinetd-usb0.conf -pidfile /var/run/xinetd-usb0.pid
-else
-	/sbin/start-stop-daemon -S -q -x /usr/sbin/xinetd -- \
-		-pidfile /var/run/xinetd.pid
-fi
+/sbin/start-stop-daemon -o -S -q -x /usr/sbin/xinetd -- \
+	-pidfile /var/run/xinetd.pid

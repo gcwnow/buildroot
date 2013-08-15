@@ -2,8 +2,18 @@
 
 [ "$IFACE" != "lo" ] || exit 0
 
-if [ "$IFACE" == "usb0" ] ; then
-	start-stop-daemon -K -q -p /var/run/xinetd-usb0.pid
-else
+HAS_OTHER_INTERFACES=no
+for i in `ls /sys/class/net` ; do
+	[ "$i" != "$IFACE" ] || continue
+	[ "$i" != "lo" ] || continue
+
+	if [ `cat /sys/class/net/$i/operstate` == "up" ] ; then
+		HAS_OTHER_INTERFACES=yes
+		break
+	fi
+done
+
+# Stop xinetd only if no other interface is up
+if [ "$HAS_OTHER_INTERFACES" != "yes" ] ; then
 	start-stop-daemon -K -q -p /var/run/xinetd.pid
 fi
