@@ -18,12 +18,12 @@ SHARED_MIME_INFO_PRE_CONFIGURE_HOOKS += SHARED_MIME_INFO_INTLTOOLIZE
 HOST_SHARED_MIME_INFO_PRE_CONFIGURE_HOOKS += SHARED_MIME_INFO_INTLTOOLIZE
 
 SHARED_MIME_INFO_CONF_ENV = XMLLINT=$(HOST_DIR)/usr/bin/xmllint
-SHARED_MIME_INFO_DEPENDENCIES = host-pkgconf host-intltool host-libglib2 host-libxml2 host-shared-mime-info libxml2 libglib2 $(if $(BR2_NEEDS_GETTEXT_IF_LOCALE),gettext)
+SHARED_MIME_INFO_DEPENDENCIES = host-pkgconf host-intltool host-libglib2 host-libxml2 host-shared-mime-info libxml2 libglib2 $(if $(BR2_NEEDS_GETTEXT),gettext)
 
 SHARED_MIME_INFO_CONF_OPT = --disable-update-mimedb
 SHARED_MIME_INFO_MAKE = $(MAKE1)
 
-HOST_SHARED_MIME_INFO_DEPENDENCIES = host-pkgconf host-intltool $(if $(BR2_NEEDS_GETTEXT_IF_LOCALE),gettext)
+HOST_SHARED_MIME_INFO_DEPENDENCIES = host-pkgconf host-intltool $(if $(BR2_NEEDS_GETTEXT),gettext)
 
 HOST_SHARED_MIME_INFO_CONF_OPT = --disable-update-mimedb
 HOST_SHARED_MIME_INFO_MAKE = $(MAKE1)
