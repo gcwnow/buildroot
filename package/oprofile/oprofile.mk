@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-OPROFILE_VERSION = 0.9.8
+OPROFILE_VERSION = 0.9.9
 OPROFILE_SITE = http://downloads.sourceforge.net/project/oprofile/oprofile/oprofile-$(OPROFILE_VERSION)
 OPROFILE_LICENSE = GPLv2+
 OPROFILE_LICENSE_FILES = COPYING
