@@ -4,11 +4,12 @@
 #
 #############################################################
 
-OPROFILE_VERSION = 0.9.7
+OPROFILE_VERSION = 0.9.9
 OPROFILE_SITE = http://downloads.sourceforge.net/project/oprofile/oprofile/oprofile-$(OPROFILE_VERSION)
 OPROFILE_CONF_OPT = --localstatedir=/var --with-kernel-support
-OPROFILE_BINARIES = utils/ophelp pp/opannotate pp/oparchive pp/opgprof
-OPROFILE_BINARIES += pp/opreport opjitconv/opjitconv daemon/oprofiled
+OPROFILE_BINARIES = utils/ophelp utils/op-check-perfevents pp/opannotate pp/oparchive pp/opgprof
+OPROFILE_BINARIES += pp/opreport opjitconv/opjitconv daemon/oprofiled pe_profiling/operf
+OPROFILE_BINARIES += pe_counting/ocount
 
 ifeq ($(BR2_i386),y)
 OPROFILE_ARCH = i386
