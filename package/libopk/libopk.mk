@@ -3,7 +3,7 @@
 # libopk
 #
 #############################################################
-LIBOPK_VERSION = v1.0
+LIBOPK_VERSION = v1.0.1
 LIBOPK_SITE = git://github.com/gcwnow/libopk.git
 LIBOPK_DEPENDENCIES = zlib libini
 LIBOPK_INSTALL_STAGING = YES
@@ -33,7 +33,7 @@ define LIBOPK_INSTALL_STAGING_CMDS
 endef
 
 define LIBOPK_INSTALL_TARGET_CMDS
-	$(LIBOPK_MAKE_ENV) DESTDIR="$(TARGET_DIR)" $(MAKE) -C $(@D) install-lib
+	$(LIBOPK_MAKE_ENV) DESTDIR="$(TARGET_DIR)" $(MAKE) -C $(@D) install-bin install-lib
 endef
 
 $(eval $(generic-package))
