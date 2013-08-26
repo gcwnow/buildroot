@@ -1,0 +1,15 @@
+config BR2_PACKAGE_APITRACE
+	bool "apitrace"
+	select BR2_PACKAGE_POPT
+	select BR2_PACKAGE_BINUTILS
+	depends on BR2_INSTALL_LIBSTDCPP
+	depends on !BR2_aarch64 # binutils
+	help
+          apitrace consists of a set of tools to:
+          * trace OpenGL, OpenGL ES, Direct3D, and DirectDraw APIs calls to a file;
+          * replay OpenGL and OpenGL ES calls from a file;
+          * inspect OpenGL state at any call while retracing;
+          * visualize and edit trace files.
+
+comment "apitrace requires a toolchain with C++ support enabled"
+	depends on !BR2_INSTALL_LIBSTDCPP
