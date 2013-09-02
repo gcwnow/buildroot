@@ -14,7 +14,7 @@ case "$1" in
 start)
 	echo "Starting power slider daemon..."
 	export HOME=`cat /etc/passwd |head -1 |cut -d':' -f 6`
-	start-stop-daemon -S -b -x /usr/sbin/pwswd -- -e /dev/$EVENT
+	start-stop-daemon -S -b -x /usr/sbin/pwswd -- -e /dev/input/$EVENT
 	unset HOME
 	;;
 stop)
