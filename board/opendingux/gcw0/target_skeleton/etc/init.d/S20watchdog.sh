@@ -9,8 +9,8 @@ case "$1" in
         . /etc/watchdog.conf
 
         # User overrides.
-        if [ -f /etc/local/watchdog.conf ]; then
-            . /etc/local/watchdog.conf
+        if [ -f /usr/local/etc/watchdog.conf ]; then
+            . /usr/local/etc/watchdog.conf
         fi
 
         watchdog -T $WATCHDOG_TIMEOUT -t $WATCHDOG_KICK_RATE /dev/watchdog

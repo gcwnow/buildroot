@@ -6,8 +6,8 @@ if [ -z "$1" ] || [ "x$1" = "xstart" ]; then
     . /etc/swap.conf
 
     # User overrides.
-    if [ -f /etc/local/swap.conf ]; then
-        . /etc/local/swap.conf
+    if [ -f /usr/local/etc/swap.conf ]; then
+        . /usr/local/etc/swap.conf
     fi
 
     # Swap to compressed RAM.

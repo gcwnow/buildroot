@@ -2,7 +2,7 @@
 
 
 # Either start or stop all the services in
-# /etc/init.d and /etc/local/init.d, executing
+# /etc/init.d and /usr/local/etc/init.d, executing
 # them in numerical order.
 
 # Action: either "start" or "stop".
@@ -15,7 +15,7 @@ else
     ACTION="start"
 fi
 
-INITFILES=`ls -1 /etc/init.d/S??* /etc/local/init.d/S??* 2>/dev/null | sed -e 's%\(.*\)/\([^/]*\)$%\2 \1/\2%' | sort -k 1 $SORTARG |cut -d ' ' -f 2`
+INITFILES=`ls -1 /etc/init.d/S??* /usr/local/etc/init.d/S??* 2>/dev/null | sed -e 's%\(.*\)/\([^/]*\)$%\2 \1/\2%' | sort -k 1 $SORTARG |cut -d ' ' -f 2`
 
 for i in $INITFILES ; do
 

@@ -3,7 +3,7 @@
 # Simple script to load/store ALSA parameters (volume...)
 #
 
-VOLUME_STATEFILE=/etc/local/volume.state
+VOLUME_STATEFILE=/usr/local/etc/volume.state
 CONTROL=PCM
 
 case "$1" in
