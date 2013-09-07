@@ -1,17 +1,43 @@
 #include <fcntl.h>
-#include <linux/vt.h>
+#include <linux/fb.h>
 #include <linux/kd.h>
+#include <linux/vt.h>
 #include <stdio.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
 
 #define FB_TTY "/dev/tty%i"
+#define FRAMEBUFFER "/dev/fb0"
 
 int main(int argc, char **argv)
 {
 	int i;
 	int fd;
 	char tty[10];
+	struct fb_var_screeninfo vinfo;
+
+	fd = open(FRAMEBUFFER, O_RDWR);
+	if (fd < 0) {
+		fprintf(stderr, "Unable to open framebuffer\n");
+		return 1;
+	}
+
+	if (ioctl(fd, FBIOGET_VSCREENINFO, &vinfo) < 0) {
+		fprintf(stderr, "Could not get framebuffer info\n");
+		close(fd);
+		return 1;
+	}
+
+	vinfo.bits_per_pixel = 32;
+	vinfo.blue.offset = 0;
+	vinfo.green.offset = 8;
+	vinfo.red.offset = 16;
+	vinfo.transp.offset = 24;
+	vinfo.red.length = vinfo.green.length = vinfo.blue.length = 8;
+	vinfo.transp.length = 0;
+	vinfo.xoffset = vinfo.yoffset = 0;
+	ioctl(fd, FBIOPUT_VSCREENINFO, &vinfo);
+	close(fd);
 
 	for (i=0; i < 10; i++) {
 		int mode;
