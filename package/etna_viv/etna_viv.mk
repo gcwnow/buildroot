@@ -13,7 +13,7 @@ ETNA_VIV_INSTALL_TARGET = NO
 ifeq ($(BR2_PACKAGE_ETNA_VIV_ABIV2),y)
 ETNA_VIV_ABI = v2
 else ifeq ($(BR2_PACKAGE_ETNA_VIV_ABIV4),y)
-ETNA_VIV_ABI = v4
+ETNA_VIV_ABI = v4_uapi
 else ifeq ($(BR2_PACKAGE_ETNA_VIV),y)
 $(error No ABI version selected)
 endif
