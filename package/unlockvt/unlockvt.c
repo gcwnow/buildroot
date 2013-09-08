@@ -3,7 +3,9 @@
 #include <linux/kd.h>
 #include <linux/vt.h>
 #include <stdio.h>
+#include <string.h>
 #include <sys/ioctl.h>
+#include <sys/mman.h>
 #include <unistd.h>
 
 #define FB_TTY "/dev/tty%i"
@@ -15,6 +17,8 @@ int main(int argc, char **argv)
 	int fd;
 	char tty[10];
 	struct fb_var_screeninfo vinfo;
+	void *fb;
+	size_t len;
 
 	fd = open(FRAMEBUFFER, O_RDWR);
 	if (fd < 0) {
@@ -36,6 +40,18 @@ int main(int argc, char **argv)
 	vinfo.red.length = vinfo.green.length = vinfo.blue.length = 8;
 	vinfo.transp.length = 0;
 	vinfo.xoffset = vinfo.yoffset = 0;
+
+	len = vinfo.xres_virtual * vinfo.yres_virtual * 4;
+	fb = mmap(NULL, len, PROT_WRITE, MAP_SHARED, fd, 0);
+	if (fb == MAP_FAILED) {
+		fprintf(stderr, "Could not map framebuffer\n");
+		close(fd);
+		return 1;
+	}
+
+	memset(fb, 0, len);
+	munmap(fb, len);
+
 	ioctl(fd, FBIOPUT_VSCREENINFO, &vinfo);
 	close(fd);
 
