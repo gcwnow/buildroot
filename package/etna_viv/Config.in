@@ -22,4 +22,11 @@ config BR2_PACKAGE_ETNA_VIV_ABIV4
 
 endchoice
 
+config BR2_PACKAGE_ETNA_VIV_PROFILER
+        bool "Performance counters support"
+        help
+          Enable support for performance counters in etna_viv library. This
+          MUST be enabled if if the kernel was built with performance counter
+          support.
+
 endif
