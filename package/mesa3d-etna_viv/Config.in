@@ -6,3 +6,10 @@ config BR2_PACKAGE_MESA3D_ETNA_VIV
 	depends on BR2_PACKAGE_ETNA_VIV
 	help
 	  Mesa 3D, an open-source implementation of the OpenGL specification.
+
+if BR2_PACKAGE_MESA3D_ETNA_VIV
+
+config BR2_PACKAGE_MESA3D_ETNA_VIV_DEBUG
+        bool "Enable debug logging and assertions"
+
+endif

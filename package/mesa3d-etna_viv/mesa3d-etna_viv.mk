@@ -30,6 +30,10 @@ MESA3D_ETNA_VIV_CONF_OPT = \
 	--enable-gallium-egl --with-gallium-drivers=swrast,etna \
 	--disable-static
 
+ifeq ($(BR2_PACKAGE_MESA3D_ETNA_VIV_DEBUG),y)
+MESA3D_ETNA_VIV_CONF_OPT += --enable-debug
+endif
+
 MESA3D_ETNA_VIV_DEPENDENCIES = \
 	etna_viv \
 	expat \
