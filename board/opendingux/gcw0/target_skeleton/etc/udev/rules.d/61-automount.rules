@@ -12,6 +12,7 @@ ACTION=="add", PROGRAM=="/sbin/blkid -o value -p -s TYPE %N", RESULT=="vfat", EN
 # Get label
 ACTION=="add", KERNEL=="mmcblk0p1", ENV{dir_name}="system"
 ACTION=="add", KERNEL=="mmcblk0p2", ENV{dir_name}="data"
+ACTION=="add", KERNEL=="mmcblk1p1", ENV{dir_name}="sdcard"
 ACTION=="add", ENV{dir_name}!="?*", PROGRAM=="/sbin/blkid -o value -p -s LABEL %N", ENV{dir_name}="%c"
 ACTION=="add", ENV{dir_name}!="?*", ENV{dir_name}="%k"
 
