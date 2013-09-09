@@ -1,33 +1,16 @@
-From 317bc797bcbe2b41243876a4791e65484da0b39d Mon Sep 17 00:00:00 2001
+From ce9b10b47ebfb69aac9a2367363ca8ddda32cf7f Mon Sep 17 00:00:00 2001
 From: "Wladimir J. van der Laan" <laanwj@gmail.com>
 Date: Sun, 25 Aug 2013 22:04:46 +0200
 Subject: [PATCH] Use fbdev instead of X11
 
 Replay egl traces on the raw fbdev device.
 ---
- dispatch/glproc_egl.cpp              |    5 +-
  retrace/CMakeLists.txt               |    5 +-
  retrace/glws_egl_fbdev.cpp           |  335 ++++++++++++++++++++++++++++++++++
  thirdparty/khronos/EGL/eglplatform.h |   35 +++-
- 4 files changed, 366 insertions(+), 14 deletions(-)
+ 3 files changed, 362 insertions(+), 13 deletions(-)
  create mode 100644 retrace/glws_egl_fbdev.cpp
 
-diff --git a/dispatch/glproc_egl.cpp b/dispatch/glproc_egl.cpp
-index abba727..b927b8d 100644
---- a/dispatch/glproc_egl.cpp
-+++ b/dispatch/glproc_egl.cpp
-@@ -70,7 +70,10 @@ void *_libGlHandle = NULL;
- void *
- _getPublicProcAddress(const char *procName)
- {
--#if defined(ANDROID)
-+/* For some reason, the other path fails to find the function, so follow the Android
-+ * path for now.
-+ */
-+#if 1 //defined(ANDROID)
-     /*
-      * Android does not support LD_PRELOAD.  It is assumed that applications
-      * are explicitely loading egltrace.so.
 diff --git a/retrace/CMakeLists.txt b/retrace/CMakeLists.txt
 index 78cceae..941dc34 100644
 --- a/retrace/CMakeLists.txt
