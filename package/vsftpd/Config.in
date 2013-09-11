@@ -4,3 +4,15 @@ config BR2_PACKAGE_VSFTPD
 	  vsftpd is an ftp daemon written with security in mind.
 	  http://vsftpd.beasts.org/
 
+if BR2_PACKAGE_VSFTPD
+
+config BR2_PACKAGE_VSFTPD_START_DAEMON
+	bool "Start vsftpd at boot"
+	default y
+	help
+	  If you disable this option, the init script will not be installed
+	  and as a result vsftpd will not be started at boot.
+
+	  This is useful if you only want to run vsftpd from xinetd.
+
+endif # BR2_PACKAGE_VSFTPD

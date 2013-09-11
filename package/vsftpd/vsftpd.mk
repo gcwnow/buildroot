@@ -41,14 +41,21 @@ define VSFTPD_INSTALL_TARGET_CMDS
 		$(TARGET_DIR)/usr/share/man/man8/vsftpd.8
 	install -D -m 644 $(@D)/vsftpd.conf.5 \
 		$(TARGET_DIR)/usr/share/man/man5/vsftpd.conf.5
-	test -f $(TARGET_DIR)/etc/init.d/S70vsftpd || \
-		$(INSTALL) -D -m 755 package/vsftpd/vsftpd-init \
-			$(TARGET_DIR)/etc/init.d/S70vsftpd
 	test -f $(TARGET_DIR)/etc/vsftpd.conf || \
 		$(INSTALL) -D -m 644 $(@D)/vsftpd.conf \
 			$(TARGET_DIR)/etc/vsftpd.conf
 	install -d -m 700 $(TARGET_DIR)/usr/share/empty
 endef
+
+ifeq ($(BR2_PACKAGE_VSFTPD_START_DAEMON),y)
+define VSFTPD_INSTALL_INITSCRIPT
+	test -f $(TARGET_DIR)/etc/init.d/S70vsftpd || \
+		$(INSTALL) -D -m 755 package/vsftpd/vsftpd-init \
+			$(TARGET_DIR)/etc/init.d/S70vsftpd
+endef
+endif
+
+VSFTPD_POST_INSTALL_TARGET_HOOKS += VSFTPD_INSTALL_INITSCRIPT
 
 define VSFTPD_UNINSTALL_TARGET_CMDS
 	rm -f $(TARGET_DIR)/usr/sbin/vsftpd
