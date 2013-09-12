@@ -8,6 +8,13 @@ config BR2_PACKAGE_DROPBEAR
 
 if BR2_PACKAGE_DROPBEAR
 
+config BR2_PACKAGE_DROPBEAR_ALLOW_BLANK_PASSWORD
+	bool "allow blank password"
+	depends on BR2_PACKAGE_DROPBEAR
+	help
+	  Enable this to allow logging in to accounts that have no password
+	  specified.
+
 config BR2_PACKAGE_DROPBEAR_DISABLE_REVERSEDNS
 	bool "disable reverse DNS lookups"
 	help
