@@ -1,8 +1,7 @@
-diff --git a/src/video/fbcon/SDL_fbvideo.c b/src/video/fbcon/SDL_fbvideo.c
-index 8daab7f..c077d82 100644
---- a/src/video/fbcon/SDL_fbvideo.c
-+++ b/src/video/fbcon/SDL_fbvideo.c
-@@ -1910,12 +1910,11 @@ static int FB_SetColors(_THIS, int firstcolor, int ncolors, SDL_Color *colors)
+diff -ru sdl-1.2.15.org/src/video/fbcon/SDL_fbvideo.c sdl-1.2.15/src/video/fbcon/SDL_fbvideo.c
+--- sdl-1.2.15.org/src/video/fbcon/SDL_fbvideo.c	2012-01-19 07:30:06.000000000 +0100
++++ sdl-1.2.15/src/video/fbcon/SDL_fbvideo.c	2013-09-13 14:03:04.010453419 +0200
+@@ -1907,12 +1913,11 @@
  static void FB_VideoQuit(_THIS)
  {
  	int i, j;
@@ -15,13 +14,19 @@ index 8daab7f..c077d82 100644
 -
  		/* If the framebuffer is not to be cleared, make sure that we won't
  		 * display the previous frame when disabling double buffering. */
- 		if ( dontClearPixels && (this->screen->flags & SDL_DOUBLEBUF) && flip_page == 0 ) {
-@@ -1971,7 +1970,7 @@ static void FB_VideoQuit(_THIS)
- 		}
+ 		if ( dontClearPixels && flip_page == 0 ) {
+@@ -1969,7 +1974,13 @@
  
  		/* Restore the original video mode and palette */
--		if ( FB_InGraphicsMode(this) ) {
-+		if ( FB_InGraphicsMode(this) && !dontClearPixels ) {
- 			FB_RestorePalette(this);
+ 		if ( FB_InGraphicsMode(this) ) {
+-			FB_RestorePalette(this);
++			if (dontClearPixels) {
++				/* Restore only panning, keep current  mode */
++				ioctl(console_fd, FBIOGET_VSCREENINFO, &saved_vinfo);
++				saved_vinfo.yoffset = saved_vinfo.xoffset = 0;
++			} else {
++				FB_RestorePalette(this);
++			}
  			ioctl(console_fd, FBIOPUT_VSCREENINFO, &saved_vinfo);
  		}
+ 
