@@ -3,7 +3,7 @@
 # gmenu2x
 #
 #############################################################
-GMENU2X_VERSION = packages
+GMENU2X_VERSION = master
 GMENU2X_SITE = git://projects.qi-hardware.com/gmenu2x.git
 GMENU2X_DEPENDENCIES = sdl sdl_gfx sdl_ttf dejavu-fonts libpng
 GMENU2X_AUTORECONF = YES
