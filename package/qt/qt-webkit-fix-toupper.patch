@@ -1,0 +1,13 @@
+diff --git a/src/3rdparty/webkit/Source/WebCore/platform/qt/PlatformKeyboardEventQt.cpp b/src/3rdparty/webkit/Source/WebCore/platform/qt/PlatformKeyboardEventQt.cpp
+index 15b9a4a..2c1786a 100644
+--- a/src/3rdparty/webkit/Source/WebCore/platform/qt/PlatformKeyboardEventQt.cpp
++++ b/src/3rdparty/webkit/Source/WebCore/platform/qt/PlatformKeyboardEventQt.cpp
+@@ -133,7 +133,7 @@ String keyIdentifierForQtKeyCode(int keyCode)
+     case Qt::Key_Backtab:
+         return "U+0009";
+     default:
+-        return String::format("U+%04X", toupper(keyCode));
++        return String::format("U+%04X", toupper((unsigned char) keyCode));
+     }
+ }
+ 
