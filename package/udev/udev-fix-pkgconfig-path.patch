@@ -1,0 +1,14 @@
+diff --git a/Makefile.am b/Makefile.am
+index 3a5f3b5..e3cd842 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -162,8 +162,7 @@ dist_udevrules_DATA = \
+ udevconfdir = $(sysconfdir)/udev
+ dist_udevconf_DATA = src/udev.conf
+ 
+-sharepkgconfigdir = $(datadir)/pkgconfig
+-sharepkgconfig_DATA = src/udev.pc
++pkgconfig_DATA += src/udev.pc
+ EXTRA_DIST += src/udev.pc.in
+ CLEANFILES += src/udev.pc
+ 
