@@ -4,7 +4,7 @@
 #
 #############################################################
 
-MESA3D_ETNA_VIV_VERSION = master
+MESA3D_ETNA_VIV_VERSION = 7f5833dd
 MESA3D_ETNA_VIV_SITE = git://github.com/laanwj/mesa.git
 MESA3D_ETNA_VIV_AUTORECONF = YES
 MESA3D_ETNA_VIV_INSTALL_STAGING = YES
