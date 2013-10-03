@@ -232,9 +232,10 @@ def paintStatus():
 	else:
 		commentLine = ''
 
-	drawString(ipAddrLine, normalFont, (8, 80))
-	drawString(statusLine, normalFont, (8, 112))
-	drawString(commentLine, normalFont, (8, 128))
+	drawString(ipAddrLine, normalFont, (8, 72))
+	drawString('Login with user name: root', normalFont, (8, 88))
+	drawString(statusLine, normalFont, (8, 114))
+	drawString(commentLine, normalFont, (8, 130))
 
 menuOptions = (
 	('Set random password', doSetRandomPassword),
