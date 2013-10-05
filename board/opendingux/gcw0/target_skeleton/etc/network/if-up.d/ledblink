@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Only blink the LED when a wlan interface is enabled
+[ ${IFACE:0:4} = "wlan" ] || exit 0
+
+echo 'timer' > /sys/class/leds/power/trigger
+echo '100' > /sys/class/leds/power/delay_on
+echo '1400' > /sys/class/leds/power/delay_off
