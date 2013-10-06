@@ -3,7 +3,7 @@
 # etna_viv
 #
 #############################################################
-ETNA_VIV_VERSION = 06c1bc89
+ETNA_VIV_VERSION = master
 ETNA_VIV_SITE = git://github.com/laanwj/etna_viv.git
 ETNA_VIV_INSTALL_STAGING = YES
 # Currently, etna_viv only builds static libs, no point in installing those
