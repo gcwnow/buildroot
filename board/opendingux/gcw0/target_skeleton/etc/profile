@@ -21,4 +21,6 @@ if [ "$PS1" ]; then
     export PS1="\[\e[01m\]\h\[\e[00m\]:\[\e[01;31m\]\w\[\e[00m\] \# "
 
     alias df='df -h'
+
+	cat /etc/welcome-banner.txt
 fi
