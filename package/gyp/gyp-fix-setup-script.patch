@@ -1,0 +1,13 @@
+Index: setup.py
+===================================================================
+--- a/setup.py	(révision 1764)
++++ b/setup.py	(copie de travail)
+@@ -4,7 +4,7 @@
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+ 
+-from setuptools import setup
++from distutils.core import setup
+ 
+ setup(
+   name='gyp',
