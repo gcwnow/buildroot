@@ -1,0 +1,14 @@
+diff --git a/configure.ac b/configure.ac
+index 0c97737..ae15b7c 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -15,8 +15,7 @@
+ AC_PREREQ(2.57)
+ AC_INIT([libuv], [0.11.13], [https://github.com/joyent/libuv/issues])
+ AC_CONFIG_MACRO_DIR([m4])
+-m4_include([m4/libuv-extra-automake-flags.m4])
+-AM_INIT_AUTOMAKE([-Wall -Werror foreign subdir-objects] UV_EXTRA_AUTOMAKE_FLAGS)
++AM_INIT_AUTOMAKE([-Wall -Werror foreign subdir-objects])
+ AC_CANONICAL_HOST
+ AC_ENABLE_SHARED
+ AC_ENABLE_STATIC
