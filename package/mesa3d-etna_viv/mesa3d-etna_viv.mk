@@ -20,8 +20,13 @@ MESA3D_ETNA_VIV_CONF_ENV := \
 MESA3D_ETNA_VIV_CONF_OPT = \
 	--disable-glx \
 	--enable-dri --with-dri-drivers= \
-	--with-gallium-drivers=swrast,etna \
-	--disable-static
+	--with-gallium-drivers=swrast,etna
+
+ifeq ($(BR2_PREFER_STATIC_LIB),y)
+MESA3D_ETNA_VIV_CONF_OPT += --enable-static --disable-shared
+else
+MESA3D_ETNA_VIV_CONF_OPT += --disable-static --enable-shared
+endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_ETNA_VIV_DEBUG),y)
 MESA3D_ETNA_VIV_CONF_OPT += --enable-debug
