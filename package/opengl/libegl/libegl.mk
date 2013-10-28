@@ -22,6 +22,10 @@ ifeq ($(BR2_PACKAGE_GPU_VIV_BIN_MX6Q),y)
 LIBEGL_DEPENDENCIES += gpu-viv-bin-mx6q
 endif
 
+ifeq ($(BR2_PACKAGE_MESA3D_ETNA_VIV_EGL),y)
+LIBEGL_DEPENDENCIES += mesa3d-etna_viv
+endif
+
 ifeq ($(LIBEGL_DEPENDENCIES),)
 define LIBEGL_CONFIGURE_CMDS
 	echo "No libEGL implementation selected. Configuration error."
