@@ -8,7 +8,13 @@ case "$IFACE" in
 		;;
 esac
 
-CONF_FILE=/etc/local/network/config-${IFACE}.conf
+# Some default values
+WLAN_DRIVER=wext
+WLAN_ENCRYPTION=none
+
+if [ -z "$CONF_FILE" ] ; then
+	CONF_FILE=/etc/local/network/config-${IFACE}.conf
+fi
 
 [ -f $CONF_FILE ] || exit 1
 . $CONF_FILE
@@ -38,7 +44,7 @@ case "$WLAN_ENCRYPTION" in
 esac
 
 /sbin/ifconfig "$IFACE" up
-/sbin/iwconfig "$IFACE" mode "$WLAN_MODE" essid "$WLAN_ESSID"
+/sbin/iwconfig "$IFACE" mode managed essid "$WLAN_ESSID"
 RET=$?
 
 if [ "$WLAN_ENCRYPTION" != "none" ] ; then
