@@ -9,8 +9,11 @@ case "$IFACE" in
 esac
 
 WLAN_DHCP_RETRIES=10
-CONF_FILE=/etc/local/network/config-${IFACE}.conf
 PIDFILE=/var/run/udhcpc_${IFACE}.pid
+
+if [ -z "$CONF_FILE" ] ; then
+	CONF_FILE=/etc/local/network/config-${IFACE}.conf
+fi
 
 if [ -f $CONF_FILE ] ; then
 	. $CONF_FILE
