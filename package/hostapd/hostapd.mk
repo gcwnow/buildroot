@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-HOSTAPD_VERSION = 2.0
-HOSTAPD_SITE = http://hostap.epitest.fi/releases
+HOSTAPD_VERSION = 0.8_rtw_r7475.20130812
+HOSTAPD_SITE = http://crapouillou.net/~paul
 HOSTAPD_SUBDIR = hostapd
 HOSTAPD_CONFIG = $(HOSTAPD_DIR)/$(HOSTAPD_SUBDIR)/.config
 HOSTAPD_DEPENDENCIES = libnl
