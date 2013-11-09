@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-HOSTAPD_VERSION = 2.0
-HOSTAPD_SITE = http://hostap.epitest.fi/releases
+HOSTAPD_VERSION = 0.8_rtw_r7475.20130812
+HOSTAPD_SITE = http://crapouillou.net/~paul
 HOSTAPD_SUBDIR = hostapd
 HOSTAPD_CONFIG = $(HOSTAPD_DIR)/$(HOSTAPD_SUBDIR)/.config
 HOSTAPD_DEPENDENCIES = libnl
@@ -80,7 +80,6 @@ define HOSTAPD_CONFIGURE_CMDS
 # Misc
 	$(SED) 's/\(#\)\(CONFIG_HS20.*\)/\2/' $(HOSTAPD_CONFIG)
 	$(SED) 's/\(#\)\(CONFIG_IEEE80211N.*\)/\2/' $(HOSTAPD_CONFIG)
-	$(SED) 's/\(#\)\(CONFIG_IEEE80211R.*\)/\2/' $(HOSTAPD_CONFIG)
 	$(SED) 's/\(#\)\(CONFIG_IEEE80211W.*\)/\2/' $(HOSTAPD_CONFIG)
 	$(SED) 's/\(#\)\(CONFIG_INTERWORKING.*\)/\2/' $(HOSTAPD_CONFIG)
 	$(SED) 's/\(#\)\(CONFIG_FULL_DYNAMIC_VLAN.*\)/\2/' $(HOSTAPD_CONFIG)
