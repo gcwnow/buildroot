@@ -1,7 +1,7 @@
 #!/bin/sh
 
 . /etc/os-release
-ROOTFS_VERSION="$VERSION"
+ROOTFS_VERSION=`echo $VERSION | sed -e 's/.*-g/g/'`
 ROOTFS_DATE=`date -r /etc/os-release '+%a %b %d %H:%M:%S %Z %Y' `
 
 KERNEL_VERSION=`uname -r`
