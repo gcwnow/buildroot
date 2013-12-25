@@ -1,0 +1,3 @@
+null::sysinit:/bin/mount -t proc proc /proc
+tty1::sysinit:/bin/sh /root/opendingux-bootdisc.sh
+null::shutdown:/bin/umount -a -r
