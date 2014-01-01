@@ -21,13 +21,16 @@ fi
 
 case "$WLAN_ENCRYPTION" in
 	wep)
+		if [ "${WLAN_PASSPHRASE:0:2}" = "s:" ] ; then
+			WLAN_PASSPHRASE="\"${WLAN_PASSPHRASE:2}\""
+		fi
 		echo "network={
-			nssid=\"$WLAN_ESSID\"
-			nscan_ssid=1
-			npriority=5
-			nkey_mgmt=NONE
-			nwep_key0=\"$WLAN_PASSPHRASE\"
-			nwep_tx_keyidx=0
+			ssid=\"$WLAN_ESSID\"
+			scan_ssid=1
+			priority=5
+			key_mgmt=NONE
+			wep_key0=$WLAN_PASSPHRASE
+			wep_tx_keyidx=0
 		}" > /tmp/.${IFACE}_config
 		;;
 
