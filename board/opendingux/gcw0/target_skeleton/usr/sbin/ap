@@ -42,6 +42,23 @@ start_ap() {
 	/usr/bin/env IFACE=wlan0 /etc/network/if-up.d/ledblink
 }
 
+get_status() {
+	if [ -f /var/run/udhcpd-ap.pid -a -f /var/run/hostapd.pid ] ; then
+		kill -0 `cat /var/run/udhcpd-ap.pid` 2>&1 >/dev/null
+		RET1=$?
+		kill -0 `cat /var/run/hostapd.pid` 2>&1 >/dev/null
+		RET2=$?
+
+		if [ $RET1 -eq 0 -a $RET2 -eq 0 ] ; then
+			echo "ap is running"
+			exit 0
+		fi
+	fi
+
+	echo "ap is NOT running"
+	exit 1
+}
+
 CONFFILE=/usr/local/etc/hostapd-ap.conf
 if [ ! -f $CONFFILE ] ; then
 	MAC=`cat /sys/class/net/wlan0/address | sed 's/://g' `
@@ -62,7 +79,10 @@ case "$1" in
 	--stop)
 		stop_ap
 		;;
+	--status)
+		get_status
+		;;
 	*)
-		echo "Usage: ap [--start|--stop]"
+		echo "Usage: ap [--start|--stop|--status]"
 		;;
 esac
