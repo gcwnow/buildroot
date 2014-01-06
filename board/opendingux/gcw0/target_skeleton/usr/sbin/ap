@@ -25,6 +25,12 @@ start_ap() {
 	done
 
 	if [ $ERR -eq 0 ] ; then
+		CONFFILE=/usr/local/etc/hostapd-ap.conf
+		if [ ! -f $CONFFILE ] ; then
+			MAC=`cat /sys/class/net/wlan0/address | sed 's/://g' `
+			echo -e "interface=wlan0\nssid=gcwzero-${MAC}\nwpa=2\nwpa_passphrase=${MAC}\nwpa_key_mgmt=WPA-PSK\nwpa_pairwise=TKIP\nhw_mode=g\nchannel=10" > $CONFFILE
+		fi
+
 		/usr/sbin/hostapd -P /var/run/hostapd.pid -B $CONFFILE > /dev/null
 		ERR=$?
 	fi
@@ -58,19 +64,6 @@ get_status() {
 	echo "ap is NOT running"
 	exit 1
 }
-
-CONFFILE=/usr/local/etc/hostapd-ap.conf
-if [ ! -f $CONFFILE ] ; then
-	MAC=`cat /sys/class/net/wlan0/address | sed 's/://g' `
-	echo "interface=wlan0
-ssid=gcwzero-$MAC
-wpa=2
-wpa_passphrase=$MAC
-wpa_key_mgmt=WPA-PSK
-wpa_pairwise=TKIP
-hw_mode=g
-channel=10" > $CONFFILE
-fi
 
 case "$1" in
 	--start)
