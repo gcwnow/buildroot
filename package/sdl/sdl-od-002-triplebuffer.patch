@@ -1,17 +1,17 @@
 diff --git a/include/SDL_video.h b/include/SDL_video.h
-index f9c4e07..a3fab1f 100644
+index f9c4e07..aa0459c 100644
 --- a/include/SDL_video.h
 +++ b/include/SDL_video.h
 @@ -138,6 +138,7 @@ typedef struct SDL_Surface {
  #define SDL_ANYFORMAT	0x10000000	/**< Allow any video depth/pixel-format */
  #define SDL_HWPALETTE	0x20000000	/**< Surface has exclusive palette */
  #define SDL_DOUBLEBUF	0x40000000	/**< Set up double-buffered video mode */
-+#define SDL_TRIPLEBUF	0x00000100	/**< Set up triple-buffered video mode */
++#define SDL_TRIPLEBUF	0x40000100	/**< Set up triple-buffered video mode */
  #define SDL_FULLSCREEN	0x80000000	/**< Surface is a full screen display */
  #define SDL_OPENGL      0x00000002      /**< Create an OpenGL rendering context */
  #define SDL_OPENGLBLIT	0x0000000A	/**< Create an OpenGL rendering context and use it for blitting */
 diff --git a/src/video/fbcon/SDL_fbvideo.c b/src/video/fbcon/SDL_fbvideo.c
-index fec158f..dab32e6 100644
+index fec158f..612a434 100644
 --- a/src/video/fbcon/SDL_fbvideo.c
 +++ b/src/video/fbcon/SDL_fbvideo.c
 @@ -156,6 +156,11 @@ static void FB_FreeHWSurface(_THIS, SDL_Surface *surface);
@@ -43,11 +43,11 @@ index fec158f..dab32e6 100644
  #endif
 +
 +#if SDL_THREADS_DISABLED
-+	flags &= ~SDL_TRIPLEBUF;
-+#endif
-+	if ( flags & SDL_TRIPLEBUF ) {
-+		flags |= SDL_DOUBLEBUF;
++	if ( (flags & SDL_TRIPLEBUF) == SDL_TRIPLEBUF ) {
++		flags &= ~SDL_TRIPLEBUF;
++		flags |= SDL_DOUBLEBUF; /* Double buffering doesn't require threads */
 +	}
++#endif
 +
  	/* Do not use double buffering with shadow buffer */
  	if (shadow_fb) {
@@ -57,7 +57,7 @@ index fec158f..dab32e6 100644
  		vinfo.xres_virtual = width;
  		vinfo.yres = height;
 -		if ( flags & SDL_DOUBLEBUF ) {
-+		if ( flags & SDL_TRIPLEBUF ) {
++		if ( (flags & SDL_TRIPLEBUF) == SDL_TRIPLEBUF ) {
 +			vinfo.yres_virtual = height*3;
 +		} else if ( flags & SDL_DOUBLEBUF ) {
  			vinfo.yres_virtual = height*2;
@@ -68,7 +68,7 @@ index fec158f..dab32e6 100644
  
  		/* Figure out how much video memory is available */
 -		if ( flags & SDL_DOUBLEBUF ) {
-+		if ( flags & SDL_TRIPLEBUF ) {
++		if ( (flags & SDL_TRIPLEBUF) == SDL_TRIPLEBUF ) {
 +			maxheight = height*3;
 +		} else if ( flags & SDL_DOUBLEBUF ) {
  			maxheight = height*2;
@@ -84,7 +84,7 @@ index fec158f..dab32e6 100644
 +		triplebuf_thread = NULL;
 +	}
 +
-+	if ( flags & SDL_TRIPLEBUF ) {
++	if ( (flags & SDL_TRIPLEBUF) == SDL_TRIPLEBUF ) {
 +		current->flags |= SDL_TRIPLEBUF;
 +		triplebuf_thread = SDL_CreateThread(FB_TripleBufferingThread, this);
 +	}
@@ -102,7 +102,7 @@ index fec158f..dab32e6 100644
 +			flip_address[2] = (char *)current->pixels+
 +				current->h*current->pitch*2;
 +
-+			if ( flags & SDL_TRIPLEBUF ) {
++			if ( (flags & SDL_TRIPLEBUF) == SDL_TRIPLEBUF ) {
 +				flip_page = 1;
 +			} else {
 +				flip_page = 0;
@@ -187,7 +187,7 @@ index fec158f..dab32e6 100644
 -		SDL_SetError("ioctl(FBIOPAN_DISPLAY) failed");
 -		return(-1);
 +
-+	if ( surface->flags & SDL_TRIPLEBUF ) {
++	if ( (surface->flags & SDL_TRIPLEBUF) == SDL_TRIPLEBUF ) {
 +#if !SDL_THREADS_DISABLED
 +		unsigned int page;
 +
