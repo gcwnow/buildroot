@@ -12,3 +12,7 @@ done
 rm -f ${TARGET_DIR}/etc/init.d/S50sshd
 rm -f ${TARGET_DIR}/etc/init.d/S50dropbear
 rm -f ${TARGET_DIR}/etc/init.d/S70vsftpd
+
+# The NTP daemon is started in the /etc/network/if-up.d/ntpd
+# script and stopped in /etc/network/if-post-down.d/ntpd
+rm -f ${TARGET_DIR}/etc/init.d/S49ntp
