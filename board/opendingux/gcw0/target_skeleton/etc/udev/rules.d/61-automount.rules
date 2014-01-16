@@ -16,7 +16,7 @@ ACTION=="add", ENV{dir_name}!="?*", PROGRAM=="/sbin/blkid -o value -p -s LABEL %
 ACTION=="add", KERNEL=="mmcblk1p1", ENV{dir_name}!="?*", ENV{dir_name}="sdcard"
 ACTION=="add", ENV{dir_name}!="?*", ENV{dir_name}="%k"
 
-ACTION=="add", ENV{dir_name}=="?*", RUN+="/bin/mkdir -p '/media/%E{dir_name}'", RUN+="/bin/mount -o %E{mount_options} /dev/%k '/media/%E{dir_name}'"
-ACTION=="remove", ENV{dir_name}=="?*", RUN+="/bin/umount -l '/media/%E{dir_name}'", RUN+="/bin/rmdir '/media/%E{dir_name}'"
+ACTION=="add", ENV{dir_name}=="?*", RUN+="/bin/mount -o remount,rw /media", RUN+="/bin/mkdir -p '/media/%E{dir_name}'", RUN+="/bin/mount -o %E{mount_options} /dev/%k '/media/%E{dir_name}'", RUN+="/bin/mount -o remount,ro /media"
+ACTION=="remove", ENV{dir_name}=="?*", RUN+="/bin/umount -l '/media/%E{dir_name}'", RUN+="/bin/mount -o remount,rw /media", RUN+="/bin/rmdir '/media/%E{dir_name}'", RUN+="/bin/mount -o remount,ro /media"
 
 LABEL="media_by_label_auto_mount_end" 
