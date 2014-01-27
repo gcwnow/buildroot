@@ -237,7 +237,7 @@ BR2_ROOTFS_DEVICE_TABLE="system/device_table.txt"
 BR2_ROOTFS_SKELETON_CUSTOM=y
 BR2_ROOTFS_SKELETON_CUSTOM_PATH="board/opendingux/od-rescue-cd/target_skeleton"
 BR2_ROOTFS_OVERLAY=""
-BR2_ROOTFS_POST_BUILD_SCRIPT=""
+BR2_ROOTFS_POST_BUILD_SCRIPT="board/opendingux/od-rescue-cd/check-images.sh"
 BR2_ROOTFS_POST_IMAGE_SCRIPT="board/opendingux/od-rescue-cd/create-iso.sh"
 BR2_ROOTFS_POST_SCRIPT_ARGS=""
 
