@@ -10,10 +10,7 @@ export DIALOGOPTS="--colors --backtitle \"OpenDingux Rescue Disc v${VERSION}\""
 echo "screen_color = (RED,RED,ON)" > /tmp/dialog_err.rc
 
 CONFIG=""
-FLASH_MBR=Yes
-FLASH_BOOTLOADER=Yes
-FLASH_SYSTEM=Yes
-FLASH_DATA=No
+FLASH=""
 
 step_one() {
 	RETAIL=""
@@ -35,63 +32,38 @@ step_one() {
 }
 
 step_two() {
-	MBR=""
-	BOOTLOADER=""
-	SYSTEM=""
-	DATA=""
-	[ $FLASH_MBR = Yes ] && MBR=on
-	[ $FLASH_BOOTLOADER = Yes ] && BOOTLOADER=on
-	[ $FLASH_SYSTEM = Yes ] && SYSTEM=on
-	[ $FLASH_DATA = Yes ] && DATA=""
+	FLASH=$( \
+		exec 3>&1 ; \
+		/usr/bin/dialog --output-fd 3 --cancel-label "Back" --radiolist \
+		"Select what you want to flash." 0 0 0 \
+		"System" "Restore the system partition" "on" \
+		"All" "\Zb\Z1Flash the MBR, bootloader, system & data partitions /!\\\Zn" "" \
+		3>&1 >&2 ; 3>&- )
+	[ -z "$FLASH" ] && return 1
 
-	while /bin/true ; do
-		RESULT=$( \
-			exec 3>&1 ; \
-			/usr/bin/dialog --output-fd 3 --cancel-label "Back" \
-			--separate-output --checklist \
-			"Select what you want to flash." 0 0 0 \
-			"MBR" "Flash the partition table" "$MBR" \
-			"Bootloader" "Flash the bootloader" "$BOOTLOADER" \
-			"System" "Flash the system partition" "$SYSTEM" \
-			"Data" "\Zb\Z1Flash the data partition /!\\\Zn" "$DATA" \
-			3>&1 >&2 ; 3>&- )
-		[ -z "$RESULT" ] && return 1
-
-		FLASH_MBR=No
-		FLASH_BOOTLOADER=No
-		FLASH_SYSTEM=No
-		FLASH_DATA=No
-
-		PARAMS=''
-		for each in $RESULT ; do
-			if [ $each = 'MBR' ] ; then
-				FLASH_MBR=Yes
-			elif [ $each = 'Bootloader' ] ; then
-				FLASH_BOOTLOADER=Yes
-			elif [ $each = 'System' ] ; then
-				FLASH_SYSTEM=Yes
-			elif [ $each = "Data" ] ; then
-				/usr/bin/dialog --defaultno --yesno \
-					"\Zb\Z1WARNING: Reflashing the data partition will irremediably wipe all your data.\nDo you want to continue?\Zn" 0 0
-				[ $? -ne 0 ] && return 2
-				FLASH_DATA=Yes
-			fi
-		done
-
-		[ $FLASH_MBR = Yes -o $FLASH_BOOTLOADER = Yes -o $FLASH_SYSTEM = Yes -o $FLASH_DATA = Yes ] && break
-	done
+	PARAMS=''
+	if [ "$FLASH" = "All" ] ; then
+		/usr/bin/dialog --defaultno --yesno \
+			"\Zb\Z1WARNING: Reflashing the data partition will irremediably wipe all your data.\nDo you want to continue?\Zn" 0 0
+		[ $? -ne 0 ] && return 2
+	fi
 	return 0
 }
 
 
 step_three() {
+	if [ "$FLASH" = "All" ] ; then
+		FLASH_ALL="\Zb\Z1Yes\Zn"
+	else
+		FLASH_ALL="No"
+	fi
 	/usr/bin/dialog --defaultno --yes-label "Flash!" --no-label "Back" \
 		--yesno "This is the configuration you selected:\n
 *   GCW-Zero model:         \Zb\Z1$CONFIG\Zn\n
-*   Flash MBR:              \Zb\Z1$FLASH_MBR\Zn\n
-*   Flash Bootloader:       \Zb\Z1$FLASH_BOOTLOADER\Zn\n
-*   Flash System partition: \Zb\Z1$FLASH_SYSTEM\Zn\n
-*   Flash Data partition:   \Zb\Z1$FLASH_DATA\Zn\n\n
+*   Flash MBR:              $FLASH_ALL\n
+*   Flash Bootloader:       $FLASH_ALL\n
+*   Flash System partition: \Zb\Z1Yes\Zn\n
+*   Flash Data partition:   $FLASH_ALL\n\n
 Do you want to flash now?" 0 0
 	[ $? -ne 0 ] && return 1
 
@@ -102,11 +74,8 @@ Do you want to flash now?" 0 0
 		CONFIG2="v11_ddr2_256mb"
 	fi
 
-	COMMAND="ingenic-boot --config=gcw0_${CONFIG2}"
-	[ $FLASH_MBR = Yes ] && COMMAND="$COMMAND --mbr=${IMAGES_DIR}/mbr.bin"
-	[ $FLASH_BOOTLOADER = Yes ] && COMMAND="$COMMAND --boot=${IMAGES_DIR}/ubiboot-${CONFIG2}.bin"
-	[ $FLASH_SYSTEM = Yes ] && COMMAND="$COMMAND --system=${IMAGES_DIR}/system.bin"
-	[ $FLASH_DATA = Yes ] && COMMAND="$COMMAND --data=${IMAGES_DIR}/data.bin"
+	COMMAND="ingenic-boot --config=gcw0_${CONFIG2} --system=${IMAGES_DIR}/system.bin"
+	[ $FLASH_ALL != "No" ] && COMMAND="$COMMAND --mbr=${IMAGES_DIR}/mbr.bin --boot=${IMAGES_DIR}/ubiboot-${CONFIG2}.bin --data=${IMAGES_DIR}/data.bin"
 
 	clear
 	$COMMAND
