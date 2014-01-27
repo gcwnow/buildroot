@@ -1,0 +1,9 @@
+config BR2_PACKAGE_INGENIC_BOOT
+	bool "ingenic-boot"
+	select BR2_PACKAGE_LIBUSB
+	select BR2_PACKAGE_LIBUSB_COMPAT
+	select BR2_PACKAGE_LIBCONFUSE
+	help
+	  Ingenic-boot is a linux port of Ingenic usb boot tools.
+
+	  http://github.com/gcwnow/ingenic-boot
