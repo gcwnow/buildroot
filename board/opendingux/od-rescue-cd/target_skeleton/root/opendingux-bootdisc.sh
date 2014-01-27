@@ -1,9 +1,9 @@
 #!/bin/sh
 
-cd /root
-
 # Version of this script
 VERSION=0.1
+
+IMAGES_DIR="/usr/share/od-rescue-cd/images"
 
 export TERM="linux"
 export DIALOGOPTS="--colors --backtitle \"OpenDingux Rescue Disc v${VERSION}\""
@@ -107,11 +107,11 @@ Do you want to flash now?" 0 0
 		CONFIG2="v11_ddr2_256mb"
 	fi
 
-	COMMAND="./ingenic-boot --config=gcw0_${CONFIG2}"
-	[ $FLASH_MBR = Yes ] && COMMAND="$COMMAND --mbr=images/mbr.bin"
-	[ $FLASH_BOOTLOADER = Yes ] && COMMAND="$COMMAND --boot=images/ubiboot-${CONFIG2}.bin"
-	[ $FLASH_SYSTEM = Yes ] && COMMAND="$COMMAND --system=images/system.bin"
-	[ $FLASH_DATA = Yes ] && COMMAND="$COMMAND --data=images/data.bin"
+	COMMAND="ingenic-boot --config=gcw0_${CONFIG2}"
+	[ $FLASH_MBR = Yes ] && COMMAND="$COMMAND --mbr=${IMAGES_DIR}/mbr.bin"
+	[ $FLASH_BOOTLOADER = Yes ] && COMMAND="$COMMAND --boot=${IMAGES_DIR}/ubiboot-${CONFIG2}.bin"
+	[ $FLASH_SYSTEM = Yes ] && COMMAND="$COMMAND --system=${IMAGES_DIR}/system.bin"
+	[ $FLASH_DATA = Yes ] && COMMAND="$COMMAND --data=${IMAGES_DIR}/data.bin"
 
 	clear
 	$COMMAND
@@ -135,7 +135,7 @@ GCW_ZERO_PRESENT=no
 while /bin/true ; do
 	/usr/bin/dialog --infobox "Detecting the GCW-Zero..." 0 0
 
-	./ingenic-boot --probe >/dev/null 2>&1
+	ingenic-boot --probe >/dev/null 2>&1
 	if [ $? -eq 0 ] ; then
 		GCW_ZERO_PRESENT=Yes
 		break
