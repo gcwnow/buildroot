@@ -672,6 +672,7 @@ BR2_PACKAGE_BUSYBOX_CONFIG="package/busybox/busybox-1.21.x.config"
 #
 # BR2_PACKAGE_HWDATA is not set
 # BR2_PACKAGE_I2C_TOOLS is not set
+BR2_PACKAGE_INGENIC_BOOT=y
 # BR2_PACKAGE_INPUT_EVENT_DAEMON is not set
 # BR2_PACKAGE_INPUT_TOOLS is not set
 # BR2_PACKAGE_IOSTAT is not set
