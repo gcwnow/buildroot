@@ -17,20 +17,17 @@ FLASH_DATA=No
 
 step_one() {
 	RETAIL=""
-	PROTO2=""
-	PROTO1=""
+	PROTO=""
 	[ "$CONFIG" = "Retail unit" ] && RETAIL=on
-	[ "$CONFIG" = "512MiB Prototype" ] && PROTO2=on
-	[ "$CONFIG" = "256MiB Prototype" ] && PROTO1=on
-	[ -z "$RETAIL" -a -z "$PROTO2" -a -z "$PROTO1" ] && RETAIL=on
+	[ "$CONFIG" = "Prototype" ] && PROTO=on
+	[ -z "$RETAIL" -a -z "$PROTO" ] && RETAIL=on
 
 	CONFIG=$( \
 		exec 3>&1 ; \
 		/usr/bin/dialog --output-fd 3 --cancel-label "Power off" --radiolist \
 		"Please select the configuration corresponding to the GCW-Zero unit:" 0 0 0 \
 		"Retail unit" "SE, KickStarter or regular edition" "$RETAIL" \
-		"512MiB Prototype" "Second-gen 512MiB RAM prototype" "$PROTO2" \
-		"256MiB Prototype" "First-gen 256MiB RAM prototype" "$PROTO1" \
+		"Prototype" "First-gen 256MiB RAM prototype" "$PROTO" \
 		3>&1 >&2 ; 3>&- )
 
 	[ -z "$CONFIG" ] && return 1
@@ -101,8 +98,6 @@ Do you want to flash now?" 0 0
 	CONFIG2=""
 	if [ "$CONFIG" = "Retail unit" ] ; then
 		CONFIG2="v20_mddr_512mb"
-	elif [ "$CONFIG" = "512MiB Prototype" ] ; then
-		CONFIG2="v11_ddr2_512mb"
 	elif [ "$CONFIG" = "256MiB Prototype" ] ; then
 		CONFIG2="v11_ddr2_256mb"
 	fi
