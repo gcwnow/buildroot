@@ -1,5 +1,7 @@
 #!/bin/sh
 
+cd /
+
 case "$IFACE" in
 	wlan[0-9])
 		;;
@@ -24,6 +26,4 @@ if [ -f "$PIDFILE" ] ; then
 fi
 
 /sbin/udhcpc -i "$IFACE" -n -R -S -t "$WLAN_DHCP_RETRIES" -p "$PIDFILE"
-RET=$?
-
-exit $RET
+exit $?
