@@ -53,6 +53,12 @@ else
 SDL_CONF_OPT += --enable-video-x11=no
 endif
 
+ifeq ($(BR2_PACKAGE_SDL_INPUT_EVENTS),y)
+SDL_CONF_OPT += --enable-input-events
+else
+SDL_CONF_OPT += --disable-input-events
+endif
+
 ifeq ($(BR2_PACKAGE_TSLIB),y)
 SDL_DEPENDENCIES += tslib
 endif
