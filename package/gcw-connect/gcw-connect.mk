@@ -5,7 +5,7 @@
 ################################################################################
 
 GCW_CONNECT_VERSION = master
-GCW_CONNECT_SITE = git://github.com/pcercuei/gcwconnect.git
+GCW_CONNECT_SITE = git://github.com/gcwnow/gcwconnect.git
 GCW_CONNECT_DEPENDENCIES = python python-pygame
 
 ifeq ($(BR2_PACKAGE_GMENU2X),y)
