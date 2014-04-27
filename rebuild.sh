@@ -29,6 +29,8 @@ rm -f dl/mesa3d-etna_viv-*.tar.gz
 rm -f dl/pyclock-*.tar.gz
 rm -f dl/pwswd-*.tar.gz
 rm -f dl/shared-mime-info-*.tar.gz
+rm -f dl/o2xiv-*.tar.gz
+rm -f dl/gcw-connect-*.tar.gz
 
 # Perform the build.
 echo "Starting build..."
