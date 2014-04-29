@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Version of this script
-VERSION=0.1
+VERSION=0.2
 
 IMAGES_DIR="/usr/share/od-rescue-cd/images"
 
@@ -70,7 +70,7 @@ Do you want to flash now?" 0 0
 	CONFIG2=""
 	if [ "$CONFIG" = "Retail unit" ] ; then
 		CONFIG2="v20_mddr_512mb"
-	elif [ "$CONFIG" = "256MiB Prototype" ] ; then
+	elif [ "$CONFIG" = "Prototype" ] ; then
 		CONFIG2="v11_ddr2_256mb"
 	fi
 

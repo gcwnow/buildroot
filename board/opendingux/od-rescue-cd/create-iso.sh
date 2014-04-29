@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=0.1
+VERSION=0.2
 
 DIR=`dirname "$0"`
 IMAGES_DIR=$1
