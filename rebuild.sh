@@ -31,6 +31,7 @@ rm -f dl/pwswd-*.tar.gz
 rm -f dl/shared-mime-info-*.tar.gz
 rm -f dl/o2xiv-*.tar.gz
 rm -f dl/gcw-connect-*.tar.gz
+rm -f dl/sdl2-*.tar.gz
 
 # Perform the build.
 echo "Starting build..."
