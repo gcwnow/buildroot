@@ -10,40 +10,74 @@ SDL2_LICENSE = zlib
 SDL2_LICENSE_FILES = COPYING.txt
 SDL2_INSTALL_STAGING = YES
 
-SDL2_CONF_OPT += --enable-video-fbdev \
-				 $(if $(BR2_PACKAGE_HAS_OPENGL_ES), $(LIBGLES_DEPENDENCIES)) \
-				 $(if $(BR2_PACKAGE_HAS_OPENGL_EGL), $(LIBEGL_DEPENDENCIES)) \
-				 $(if $(BR2_PACKAGE_PULSEAUDIO), pulseaudio)
+ifeq ($(BR2_PACKAGE_HAS_OPENGL_ES),y)
+SDL2_DEPENDENCIES += $(LIBGLES_DEPENDENCIES)
+SDL2_CONF_OPT += --enable-video-opengles
+else
+SDL2_CONF_OPT += --disable-video-opengles
+endif
+
+ifeq ($(BR2_PACKAGE_HAS_OPENGL_EGL),y)
+SDL2_DEPENDENCIES += $(LIBEGL_DEPENDENCIES)
+endif
+
+SDL2_CONF_OPT += --enable-video-fbdev
+
+# Note: SDL2 looks for X11 headers in host dirs, so if you want to build SDL2
+#       with X11 support, better make it safe for cross compilation first.
+SDL2_CONF_OPT += --disable-video-x11
 
 ifeq ($(BR2_PACKAGE_DIRECTFB),y)
 SDL2_DEPENDENCIES += directfb
 SDL2_CONF_OPT += --enable-video-directfb
-SDL2_CONF_ENV = ac_cv_path_DIRECTFBCONFIG=$(STAGING_DIR)/usr/bin/directfb-config
+SDL2_CONF_ENV += ac_cv_path_DIRECTFBCONFIG=$(STAGING_DIR)/usr/bin/directfb-config
+else
+SDL2_CONF_OPT += --disable-video-directfb
 endif
 
 ifeq ($(BR2_PACKAGE_ALSA_LIB),y)
 SDL2_DEPENDENCIES += alsa-lib
-SDL2_CONF_OPT += --enable-alsa --enable-oss=no
+SDL2_CONF_OPT += --enable-alsa --disable-oss
+else
+SDL2_CONF_OPT += --disable-alsa
 endif
 
-ifeq ($(BR2_PACKAGE_TSLIB),y)
+ifeq ($(BR2_PACKAGE_PULSEAUDIO),y)
+SDL2_DEPENDENCIES += pulseaudio
+SDL2_CONF_OPT += --enable-pulseaudio
+else
+SDL2_CONF_OPT += --disable-pulseaudio
+endif
+
+SDL2_CONF_OPT += --disable-esd
+
+ifeq ($(BR2_PACKAGE_HAS_UDEV),y)
+SDL2_CONF_OPT += --enable-libudev
+else
+SDL2_CONF_OPT += --disable-libudev
+endif
+
+ifeq ($(BR2_PACKAGE_DBUS),y)
+SDL2_CONF_OPT += --enable-dbus
+else
+SDL2_CONF_OPT += --disable-dbus
+endif
+
 # OpenDingux hack: We've got tslib to make porting easier, but we've got no
 #                  touch screen, so having SDL try to use tslib is pointless.
-#SDL_DEPENDENCIES += tslib
-SDL2_CONF_OPT+=--enable-input-tslib=no
-endif
+# ifeq ($(BR2_PACKAGE_TSLIB),y)
+# SDL2_DEPENDENCIES += tslib
+# SDL2_CONF_OPT += --enable-input-tslib
+# else
+SDL2_CONF_OPT += --disable-input-tslib
+# endif
 
-# Remove the -Wl,-rpath option.
-define SDL2_FIXUP_SDL2_CONFIG
-	$(SED) 's%-Wl,-rpath,\$${libdir}%%' \
-		$(STAGING_DIR)/usr/bin/sdl2-config
-endef
+SDL2_CONF_OPT += --disable-rpath
 
 define SDL2_REMOVE_SDL2_CONFIG
 	rm $(TARGET_DIR)/usr/bin/sdl2-config
 endef
 
-SDL2_POST_INSTALL_STAGING_HOOKS += SDL2_FIXUP_SDL2_CONFIG
 SDL2_POST_INSTALL_TARGET_HOOKS += SDL2_REMOVE_SDL2_CONFIG
 
 $(eval $(autotools-package))
