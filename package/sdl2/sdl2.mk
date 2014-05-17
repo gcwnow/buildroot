@@ -74,10 +74,18 @@ SDL2_CONF_OPT += --disable-input-tslib
 
 SDL2_CONF_OPT += --disable-rpath
 
+define SDL2_FIXUP_SDL2_CONFIG
+	$(SED) 's%^prefix=.*%prefix=$(STAGING_DIR)/usr%' \
+		$(STAGING_DIR)/usr/bin/sdl2-config
+	$(SED) 's%^exec_prefix=.*%exec_prefix=$${prefix}%' \
+		$(STAGING_DIR)/usr/bin/sdl2-config
+endef
+
 define SDL2_REMOVE_SDL2_CONFIG
 	rm $(TARGET_DIR)/usr/bin/sdl2-config
 endef
 
 SDL2_POST_INSTALL_TARGET_HOOKS += SDL2_REMOVE_SDL2_CONFIG
+SDL2_POST_INSTALL_STAGING_HOOKS += SDL2_FIXUP_SDL2_CONFIG
 
 $(eval $(autotools-package))
