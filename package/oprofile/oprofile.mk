@@ -20,7 +20,7 @@ OPROFILE_BINARIES += utils/op-check-perfevents libabi/opimport
 
 # No perf_events support in kernel for avr32
 ifneq ($(BR2_avr32),y)
-OPROFILE_BINARIES += pe_profiling/operf
+OPROFILE_BINARIES += pe_profiling/operf pe_counting/ocount
 endif
 
 ifeq ($(BR2_i386),y)
