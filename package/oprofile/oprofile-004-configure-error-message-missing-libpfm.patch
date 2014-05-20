@@ -1,0 +1,46 @@
+Upstream-Status: Backport
+
+From a2811baceccff810e055f166792acdf7a920bf8c Mon Sep 17 00:00:00 2001
+From: Maynard Johnson <maynardj@us.ibm.com>
+Date: Wed, 9 Oct 2013 14:27:54 -0500
+Subject: [PATCH] configure error message for missing libpfm is not informative
+ enough
+
+On the ppc64 architecture, the libpfm library is used to get perf_events
+encodings for events, so the configure script checks for the availability
+of that library when building for ppc64. If the library is missing, the
+configure error message is:
+
+  checking for perfmon/pfmlib.h... no
+  configure: error: pfmlib.h not found; usually provided in papi devel package
+
+However, some newer distros (like Fedora 19) are now delivering separate
+packages for libpfm and papi, instead of bundling them together. The patch
+provided herein changes the configure message to reflect that change in
+packaging.
+
+Signed-off-by: Maynard Johnson <maynardj@us.ibm.com>
+---
+ configure.ac | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 758b676..457145a 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -185,10 +185,10 @@ AC_CANONICAL_HOST
+ if test "$HAVE_PERF_EVENTS" = "1"; then
+ 	PFM_LIB=
+ 	if test "$host_cpu" = "powerpc64"; then
+-		AC_CHECK_HEADER(perfmon/pfmlib.h,,[AC_MSG_ERROR([pfmlib.h not found; usually provided in papi devel package])])
++		AC_CHECK_HEADER(perfmon/pfmlib.h,,[AC_MSG_ERROR([pfmlib.h not found; may be provided by libpfm devel or papi devel package])])
+ 		AC_CHECK_LIB(pfm,pfm_get_os_event_encoding, HAVE_LIBPFM3='0'; HAVE_LIBPFM='1', [
+ 			AC_CHECK_LIB(pfm, pfm_get_event_name, HAVE_LIBPFM3='1'; HAVE_LIBPFM='1',
+-			[AC_MSG_ERROR([libpfm not found; usually provided in papi devel package])])])
++			[AC_MSG_ERROR([libpfm not found; may be provided by libpfm devel or papi devel package])])])
+ 		PFM_LIB="-lpfm"
+ 		AC_DEFINE_UNQUOTED(HAVE_LIBPFM3, $HAVE_LIBPFM3, [Define to 1 if using libpfm3; 0 if using newer libpfm])
+ 		AC_DEFINE_UNQUOTED(HAVE_LIBPFM, $HAVE_LIBPFM, [Define to 1 if libpfm is available])
+-- 
+1.8.4.5
+

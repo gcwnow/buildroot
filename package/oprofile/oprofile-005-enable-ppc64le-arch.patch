@@ -1,0 +1,59 @@
+Upstream-Status: Backport
+
+From a265c549bff149f5e9064dca7d06b6689fb3d64e Mon Sep 17 00:00:00 2001
+From: Maynard Johnson <maynardj@us.ibm.com>
+Date: Thu, 9 Jan 2014 15:47:09 -0600
+Subject: [PATCH] Enable oprofile for new ppc64le architecture
+
+Signed-off-by: Maynard Johnson <maynardj@us.ibm.com>
+---
+ configure.ac              | 2 +-
+ libop/op_cpu_type.c       | 3 ++-
+ libutil++/bfd_support.cpp | 4 +---
+ 3 files changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 457145a..1e3a65f 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -184,7 +184,7 @@ AC_DEFINE_UNQUOTED(HAVE_PERF_EVENTS, $HAVE_PERF_EVENTS, [Kernel support for perf
+ AC_CANONICAL_HOST
+ if test "$HAVE_PERF_EVENTS" = "1"; then
+ 	PFM_LIB=
+-	if test "$host_cpu" = "powerpc64"; then
++        if test "$host_cpu" = "powerpc64le" -o "$host_cpu" = "powerpc64"; then
+ 		AC_CHECK_HEADER(perfmon/pfmlib.h,,[AC_MSG_ERROR([pfmlib.h not found; may be provided by libpfm devel or papi devel package])])
+ 		AC_CHECK_LIB(pfm,pfm_get_os_event_encoding, HAVE_LIBPFM3='0'; HAVE_LIBPFM='1', [
+ 			AC_CHECK_LIB(pfm, pfm_get_event_name, HAVE_LIBPFM3='1'; HAVE_LIBPFM='1',
+diff --git a/libop/op_cpu_type.c b/libop/op_cpu_type.c
+index 7d5262c..15c71ab 100644
+--- a/libop/op_cpu_type.c
++++ b/libop/op_cpu_type.c
+@@ -621,7 +621,8 @@ static op_cpu __get_cpu_type_alt_method(void)
+ 	    fnmatch("i?86", uname_info.machine, 0) == 0) {
+ 		return _get_x86_64_cpu_type();
+ 	}
+-	if (strncmp(uname_info.machine, "ppc64", 5) == 0) {
++	if ((strncmp(uname_info.machine, "ppc64", 5) == 0) ||
++			(strncmp(uname_info.machine, "ppc64le", 7) == 0)) {
+ 		return _get_ppc64_cpu_type();
+ 	}
+ 	if (strncmp(uname_info.machine, "arm", 3) == 0) {
+diff --git a/libutil++/bfd_support.cpp b/libutil++/bfd_support.cpp
+index 67edd09..4b744f8 100644
+--- a/libutil++/bfd_support.cpp
++++ b/libutil++/bfd_support.cpp
+@@ -634,9 +634,7 @@ void bfd_info::translate_debuginfo_syms(asymbol ** dbg_syms, long nr_dbg_syms)
+ bool bfd_info::get_synth_symbols()
+ {
+ 	extern const bfd_target bfd_elf64_powerpc_vec;
+-	extern const bfd_target bfd_elf64_powerpcle_vec;
+-	bool is_elf64_powerpc_target = (abfd->xvec == &bfd_elf64_powerpc_vec)
+-		|| (abfd->xvec == &bfd_elf64_powerpcle_vec);
++	bool is_elf64_powerpc_target = (abfd->xvec == &bfd_elf64_powerpc_vec);
+ 
+ 	if (!is_elf64_powerpc_target)
+ 		return false;
+-- 
+1.8.4.5
+
