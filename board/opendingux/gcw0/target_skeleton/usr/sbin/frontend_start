@@ -16,6 +16,9 @@ if [ -f /sys/module/linkdev/parameters/alt_key_map ] ; then
 	echo N > /sys/module/linkdev/parameters/alt_key_map
 fi
 
+# Stop the gravity sensor if it's loaded
+/usr/sbin/gsensor --stop
+
 if [ -f /usr/local/sbin/frontend_start ]; then
 	exec /usr/local/sbin/frontend_start
 else
