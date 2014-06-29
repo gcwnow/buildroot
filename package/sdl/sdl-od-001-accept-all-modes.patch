@@ -1,0 +1,15 @@
+diff --git a/src/video/SDL_video.c b/src/video/SDL_video.c
+index 46285c9..ed73e9a 100644
+--- a/src/video/SDL_video.c
++++ b/src/video/SDL_video.c
+@@ -385,6 +385,10 @@ int SDL_VideoModeOK (int width, int height, int bpp, Uint32 flags)
+ 		return(0);
+ 	}
+ 
++	/* OpenDingux specific patch: The video driver can handle everything
++	 * from 4x4 to 640x480, we don't need to search for the closest mode */
++	return 1;
++
+ 	/* Search through the list valid of modes */
+ 	SDL_memset(&format, 0, sizeof(format));
+ 	supported = 0;
