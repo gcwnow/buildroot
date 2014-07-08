@@ -11,22 +11,23 @@ index f9c4e07..aa0459c 100644
  #define SDL_OPENGL      0x00000002      /**< Create an OpenGL rendering context */
  #define SDL_OPENGLBLIT	0x0000000A	/**< Create an OpenGL rendering context and use it for blitting */
 diff --git a/src/video/fbcon/SDL_fbvideo.c b/src/video/fbcon/SDL_fbvideo.c
-index fec158f..612a434 100644
+index fec158f..21ee142 100644
 --- a/src/video/fbcon/SDL_fbvideo.c
 +++ b/src/video/fbcon/SDL_fbvideo.c
-@@ -156,6 +156,11 @@ static void FB_FreeHWSurface(_THIS, SDL_Surface *surface);
+@@ -156,6 +156,12 @@ static void FB_FreeHWSurface(_THIS, SDL_Surface *surface);
  static void FB_WaitVBL(_THIS);
  static void FB_WaitIdle(_THIS);
  static int FB_FlipHWSurface(_THIS, SDL_Surface *surface);
 +#if !SDL_THREADS_DISABLED
 +static int FB_TripleBufferingThread(void *d);
 +static void FB_TripleBufferInit(_THIS);
++static void FB_TripleBufferStop(_THIS);
 +static void FB_TripleBufferQuit(_THIS);
 +#endif
  
  /* Internal palette functions */
  static void FB_SavePalette(_THIS, struct fb_fix_screeninfo *finfo,
-@@ -812,6 +817,10 @@ static int FB_VideoInit(_THIS, SDL_PixelFormat *vformat)
+@@ -812,6 +818,10 @@ static int FB_VideoInit(_THIS, SDL_PixelFormat *vformat)
  		}
  	}
  
@@ -37,7 +38,7 @@ index fec158f..612a434 100644
  	/* We're done! */
  	return(0);
  }
-@@ -1028,6 +1037,14 @@ static SDL_Surface *FB_SetVideoMode(_THIS, SDL_Surface *current,
+@@ -1028,6 +1038,14 @@ static SDL_Surface *FB_SetVideoMode(_THIS, SDL_Surface *current,
  	fprintf(stderr, "Printing original vinfo:\n");
  	print_vinfo(&vinfo);
  #endif
@@ -52,7 +53,7 @@ index fec158f..612a434 100644
  	/* Do not use double buffering with shadow buffer */
  	if (shadow_fb) {
  		flags &= ~SDL_DOUBLEBUF;
-@@ -1041,7 +1058,9 @@ static SDL_Surface *FB_SetVideoMode(_THIS, SDL_Surface *current,
+@@ -1041,7 +1059,9 @@ static SDL_Surface *FB_SetVideoMode(_THIS, SDL_Surface *current,
  		vinfo.xres = width;
  		vinfo.xres_virtual = width;
  		vinfo.yres = height;
@@ -63,7 +64,7 @@ index fec158f..612a434 100644
  			vinfo.yres_virtual = height*2;
  		} else {
  			vinfo.yres_virtual = height;
-@@ -1071,7 +1090,9 @@ static SDL_Surface *FB_SetVideoMode(_THIS, SDL_Surface *current,
+@@ -1071,7 +1091,9 @@ static SDL_Surface *FB_SetVideoMode(_THIS, SDL_Surface *current,
  		int maxheight;
  
  		/* Figure out how much video memory is available */
@@ -74,19 +75,26 @@ index fec158f..612a434 100644
  			maxheight = height*2;
  		} else {
  			maxheight = height;
-@@ -1169,14 +1190,34 @@ static SDL_Surface *FB_SetVideoMode(_THIS, SDL_Surface *current,
+@@ -1169,14 +1191,41 @@ static SDL_Surface *FB_SetVideoMode(_THIS, SDL_Surface *current,
  		break;
  	}
  
 +#if !SDL_THREADS_DISABLED
-+	if ( triplebuf_thread ) {
-+		SDL_KillThread(triplebuf_thread);
-+		triplebuf_thread = NULL;
-+	}
++	if ( triplebuf_thread )
++		FB_TripleBufferStop(this);
 +
 +	if ( (flags & SDL_TRIPLEBUF) == SDL_TRIPLEBUF ) {
 +		current->flags |= SDL_TRIPLEBUF;
++		current_page = 0;
++		new_page = 2;
++		triplebuf_thread_stop = 0;
++
++		SDL_LockMutex(triplebuf_mutex);
 +		triplebuf_thread = SDL_CreateThread(FB_TripleBufferingThread, this);
++
++		/* Wait until the triplebuf thread is ready */
++		SDL_CondWait(triplebuf_cond, triplebuf_mutex);
++		SDL_UnlockMutex(triplebuf_mutex);
 +	}
 +#endif
 +
@@ -111,7 +119,7 @@ index fec158f..612a434 100644
  			this->screen = current;
  			FB_FlipHWSurface(this, current);
  			this->screen = NULL;
-@@ -1425,26 +1466,99 @@ static void FB_WaitIdle(_THIS)
+@@ -1425,26 +1474,106 @@ static void FB_WaitIdle(_THIS)
  	return;
  }
  
@@ -120,14 +128,17 @@ index fec158f..612a434 100644
 +{
 +	SDL_VideoDevice *this = d;
 +
++	SDL_LockMutex(triplebuf_mutex);
++	SDL_CondSignal(triplebuf_cond);
++
 +	for (;;) {
 +		unsigned int page;
 +
-+		SDL_LockMutex(triplebuf_mutex);
 +		SDL_CondWait(triplebuf_cond, triplebuf_mutex);
++		if (triplebuf_thread_stop)
++			break;
 +
 +		/* Flip the most recent back buffer with the front buffer */
-+		SDL_LockMutex(triplebuf_mutex2);
 +		page = current_page;
 +		current_page = new_page;
 +		new_page = page;
@@ -141,31 +152,35 @@ index fec158f..612a434 100644
 +			SDL_SetError("ioctl(FBIOPAN_DISPLAY) failed");
 +			return(-1);
 +		}
-+
-+		SDL_UnlockMutex(triplebuf_mutex2);
 +	}
 +
++	SDL_UnlockMutex(triplebuf_mutex);
 +	return 0;
 +}
 +
 +static void FB_TripleBufferInit(_THIS)
 +{
-+	current_page = 0;
-+	new_page = 2;
 +	triplebuf_mutex = SDL_CreateMutex();
-+	triplebuf_mutex2 = SDL_CreateMutex();
 +	triplebuf_cond = SDL_CreateCond();
++	triplebuf_thread = NULL;
++}
++
++static void FB_TripleBufferStop(_THIS)
++{
++	SDL_LockMutex(triplebuf_mutex);
++	triplebuf_thread_stop = 1;
++	SDL_CondSignal(triplebuf_cond);
++	SDL_UnlockMutex(triplebuf_mutex);
++
++	SDL_WaitThread(triplebuf_thread, NULL);
 +	triplebuf_thread = NULL;
 +}
 +
 +static void FB_TripleBufferQuit(_THIS)
 +{
-+	if ( triplebuf_thread != NULL ) {
-+		SDL_KillThread(triplebuf_thread);
-+		triplebuf_thread = NULL;
-+	}
++	if (triplebuf_thread)
++		FB_TripleBufferStop(this);
 +	SDL_DestroyMutex(triplebuf_mutex);
-+	SDL_DestroyMutex(triplebuf_mutex2);
 +	SDL_DestroyCond(triplebuf_cond);
 +}
 +#endif
@@ -192,14 +207,14 @@ index fec158f..612a434 100644
 +		unsigned int page;
 +
 +		/* Flip the two back buffers */
-+		SDL_LockMutex(triplebuf_mutex2);
++		SDL_LockMutex(triplebuf_mutex);
 +		page = new_page;
 +		new_page = flip_page;
 +		flip_page = page;
 +
 +		surface->pixels = flip_address[flip_page];
-+		SDL_UnlockMutex(triplebuf_mutex2);
 +		SDL_CondSignal(triplebuf_cond);
++		SDL_UnlockMutex(triplebuf_mutex);
 +#endif
 +	} else {
 +		/* Wait for vertical retrace and then flip display */
@@ -220,7 +235,7 @@ index fec158f..612a434 100644
  	return(0);
  }
  
-@@ -1915,6 +2029,10 @@ static void FB_VideoQuit(_THIS)
+@@ -1915,6 +2044,10 @@ static void FB_VideoQuit(_THIS)
  	int i, j;
  	const char *dontClearPixels = SDL_getenv("SDL_FBCON_DONT_CLEAR");
  
@@ -232,7 +247,7 @@ index fec158f..612a434 100644
  		/* Clear screen and tell SDL not to free the pixels */
  
 diff --git a/src/video/fbcon/SDL_fbvideo.h b/src/video/fbcon/SDL_fbvideo.h
-index 1443d2b..687d685 100644
+index 1443d2b..3efbd3a 100644
 --- a/src/video/fbcon/SDL_fbvideo.h
 +++ b/src/video/fbcon/SDL_fbvideo.h
 @@ -30,6 +30,7 @@
@@ -253,9 +268,9 @@ index 1443d2b..687d685 100644
 +	int current_page;
 +	int new_page;
 +	SDL_mutex *triplebuf_mutex;
-+	SDL_mutex *triplebuf_mutex2;
 +	SDL_cond *triplebuf_cond;
 +	SDL_Thread *triplebuf_thread;
++	int triplebuf_thread_stop;
 +#endif
  	int rotate;
  	int shadow_fb;				/* Tells whether a shadow is being used. */
@@ -268,9 +283,9 @@ index 1443d2b..687d685 100644
 +#define current_page		(this->hidden->current_page)
 +#define new_page			(this->hidden->new_page)
 +#define triplebuf_mutex		(this->hidden->triplebuf_mutex)
-+#define triplebuf_mutex2	(this->hidden->triplebuf_mutex2)
 +#define triplebuf_cond		(this->hidden->triplebuf_cond)
 +#define triplebuf_thread	(this->hidden->triplebuf_thread)
++#define triplebuf_thread_stop	(this->hidden->triplebuf_thread_stop)
 +#endif
  #define rotate			(this->hidden->rotate)
  #define shadow_fb		(this->hidden->shadow_fb)
