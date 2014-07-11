@@ -26,6 +26,9 @@
 # now run any rc scripts
 ::sysinit:/etc/init.d/rcS start
 
+# startup has finished; stop logging to console
+::sysinit:/bin/dmesg -D
+
 # Launch the main application
 tty1::respawn:/usr/sbin/frontend_start
 ttyS2::respawn:/sbin/getty -n -l /usr/sbin/rootlogin -L ttyS2 57600 vt100
