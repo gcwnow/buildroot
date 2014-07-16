@@ -8,6 +8,9 @@ export PATH=\
 /usr/sbin:\
 /sbin
 
+# Force GLES graphics for games created with Love2D
+export LOVE_GRAPHICS_USE_OPENGLES=1
+
 # If running interactively, then:
 if [ "$PS1" ]; then
 
