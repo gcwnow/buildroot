@@ -2,7 +2,6 @@ config BR2_PACKAGE_GMENU2X
 	bool "gmenu2x"
 	select BR2_PACKAGE_LIBPNG
 	select BR2_PACKAGE_SDL
-	select BR2_PACKAGE_SDL_GFX
 	select BR2_PACKAGE_SDL_TTF
 	select BR2_PACKAGE_DEJAVU_FONTS
 	help
