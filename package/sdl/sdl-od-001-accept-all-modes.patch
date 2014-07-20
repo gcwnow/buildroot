@@ -1,15 +1,15 @@
-diff --git a/src/video/SDL_video.c b/src/video/SDL_video.c
-index 46285c9..ed73e9a 100644
---- a/src/video/SDL_video.c
-+++ b/src/video/SDL_video.c
-@@ -385,6 +385,10 @@ int SDL_VideoModeOK (int width, int height, int bpp, Uint32 flags)
- 		return(0);
- 	}
+diff --git a/src/video/fbcon/SDL_fbvideo.c b/src/video/fbcon/SDL_fbvideo.c
+index fec158f..dd46069 100644
+--- a/src/video/fbcon/SDL_fbvideo.c
++++ b/src/video/fbcon/SDL_fbvideo.c
+@@ -273,6 +273,10 @@ static SDL_VideoDevice *FB_CreateDevice(int devindex)
+ 
+ 	this->free = FB_DeleteDevice;
  
 +	/* OpenDingux specific patch: The video driver can handle everything
-+	 * from 4x4 to 640x480, we don't need to search for the closest mode */
-+	return 1;
++	 * from 4x4 to 640x480 */
++	this->handles_any_size = 1;
 +
- 	/* Search through the list valid of modes */
- 	SDL_memset(&format, 0, sizeof(format));
- 	supported = 0;
+ 	return this;
+ }
+ 
