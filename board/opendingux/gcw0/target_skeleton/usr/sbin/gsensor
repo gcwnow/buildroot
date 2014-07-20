@@ -4,10 +4,13 @@ GSENSOR_MODULE=mxc6225
 
 start_gsensor() {
 	if grep -q "v11_ddr2_256mb" /proc/cmdline ; then
-		exec modprobe $GSENSOR_MODULE chip_orientation=2
+		modprobe $GSENSOR_MODULE chip_orientation=2
 	else
-		exec modprobe $GSENSOR_MODULE
+		modprobe $GSENSOR_MODULE
 	fi
+
+	# Wait for the gsensor node to appear before returning
+	exec udevadm settle --timeout=3 --exit-if-exists=/dev/input/gsensor
 }
 
 stop_gsensor() {
