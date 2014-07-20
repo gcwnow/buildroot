@@ -9,6 +9,7 @@ LOVE2D_SITE_METHOD = hg
 LOVE2D_LICENSE = unknown
 LOVE2D_LICENSE_FILES = license.txt
 
+LOVE2D_AUTORECONF = YES
 LOVE2D_DEPENDENCIES = libgles luainterpreter sdl2 \
 					  devil libmodplug libvorbis
 
@@ -37,9 +38,12 @@ LOVE2D_CONF_OPT += --disable-implementation-filesystem-physfs
 endif
 
 define LOVE2D_PREPARE_BUILD
-	( cd $(@D) ; platform/unix/automagic )
+	( cd $(@D) ; \
+		cp platform/unix/configure.ac platform/unix/Makefile.am . ; \
+		$(SHELL) platform/unix/genmodules ; \
+		$(AUTOHEADER) ; \
+		$(LIBTOOLIZE) )
 endef
-
 LOVE2D_PRE_CONFIGURE_HOOKS += LOVE2D_PREPARE_BUILD
 
 $(eval $(autotools-package))
