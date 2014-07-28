@@ -27,3 +27,8 @@ if [ "$PS1" ]; then
 
 	cat /etc/welcome-banner.txt
 fi
+
+# Source a local version of this file if present
+if [ -f /usr/local/etc/profile ] ; then
+	. /usr/local/etc/profile
+fi
