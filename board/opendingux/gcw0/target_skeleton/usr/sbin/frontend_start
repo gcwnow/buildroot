@@ -22,6 +22,9 @@ fi
 # Stop the gravity sensor if it's loaded
 /usr/sbin/gsensor --stop
 
+# Source /etc/profile to set the environment variables
+. /etc/profile
+
 if [ -f /usr/local/sbin/frontend_start ]; then
 	exec /usr/local/sbin/frontend_start
 else
