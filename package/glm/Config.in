@@ -1,0 +1,7 @@
+config BR2_PACKAGE_GLM
+	bool "glm"
+	depends on BR2_INSTALL_LIBSTDCPP
+	help
+	  OpenGL Mathematics (GLM)
+
+	  http://glm.g-truc.net
