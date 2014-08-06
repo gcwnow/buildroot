@@ -12,7 +12,7 @@ export PATH=\
 export LOVE_GRAPHICS_USE_OPENGLES=1
 
 # If running interactively, then:
-if [ "$PS1" ]; then
+if [ "$-" ]; then
 
     export USER=`id -un`
     export LOGNAME=$USER
