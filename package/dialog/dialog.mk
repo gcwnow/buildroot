@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-DIALOG_VERSION = 1.1-20111020
+DIALOG_VERSION = 1.2-20140219
 DIALOG_SOURCE = dialog-$(DIALOG_VERSION).tgz
 DIALOG_SITE = ftp://invisible-island.net/dialog
 DIALOG_CONF_OPT = --with-ncurses
