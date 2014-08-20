@@ -13,6 +13,10 @@ if [ -z "$1" ] || [ "x$1" = "xstart" ]; then
 		mkdir -p /usr/local/$i
 	done
 
+	mount -o remount,rw /media
+	ln -s data/local/home /media/home
+	mount -o remount,ro /media
+
 	if [ ! -f /usr/local/etc/shadow ]; then
 		echo 'root:*:::::::' > /usr/local/etc/shadow
 		chmod 600 /usr/local/etc/shadow
