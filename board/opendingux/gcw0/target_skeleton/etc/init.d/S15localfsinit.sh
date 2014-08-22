@@ -8,7 +8,7 @@ if [ -z "$1" ] || [ "x$1" = "xstart" ]; then
 	/usr/bin/udevadm settle --exit-if-exists=/tmp/.media_data_is_mounted
 	rm /tmp/.media_data_is_mounted
 
-	mkdir -p /usr/local
+	mkdir -p /media/data/local
 	for i in bin etc home lib sbin share; do
 		mkdir -p /usr/local/$i
 	done
