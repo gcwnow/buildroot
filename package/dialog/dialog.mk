@@ -17,6 +17,8 @@ ifneq ($(BR2_ENABLE_LOCALE),y)
 DIALOG_DEPENDENCIES += libiconv
 endif
 
+DIALOG_CONF_OPT = NCURSES_CONFIG=$(STAGING_DIR)/usr/bin/ncurses5-config
+
 define DIALOG_INSTALL_TARGET_CMDS
 	install -c $(@D)/dialog $(TARGET_DIR)/usr/bin/dialog
 endef
