@@ -27,8 +27,4 @@ config BR2_PACKAGE_SDL_X11
 	select BR2_PACKAGE_XLIB_LIBX11
 	select BR2_PACKAGE_XLIB_LIBXEXT
 
-config BR2_PACKAGE_SDL_INPUT_EVENTS
-	bool "Use Linux unified input interface"
-	default y
-
 endif
