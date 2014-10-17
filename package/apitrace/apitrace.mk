@@ -1,11 +1,11 @@
-#############################################################
+################################################################################
 #
 # apitrace
 #
-#############################################################
+################################################################################
 
 APITRACE_VERSION = 0ef175f
-APITRACE_SITE = git://github.com/apitrace/apitrace.git
+APITRACE_SITE = $(call github,apitrace,apitrace,$(APITRACE_VERSION))
 
 APITRACE_CONF_OPT = -DPYTHON_EXECUTABLE:STRING="$(HOST_DIR)/usr/bin/python"
 ifneq ($(BR2_PACKAGE_XLIB_LIBX11),y)
