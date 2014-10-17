@@ -1,10 +1,11 @@
-#############################################################
+################################################################################
 #
 # libxdgmime
 #
-#############################################################
+################################################################################
+
 LIBXDGMIME_VERSION = master
-LIBXDGMIME_SITE = git://github.com/pcercuei/libxdgmime.git
+LIBXDGMIME_SITE = $(call github,pcercuei,libxdgmime,$(LIBXDGMIME_VERSION))
 LIBXDGMIME_DEPENDENCIES = shared-mime-info
 LIBXDGMIME_INSTALL_STAGING = YES
 
