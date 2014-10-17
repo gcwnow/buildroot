@@ -1,10 +1,10 @@
-#############################################################
+################################################################################
 #
 # etna_viv
 #
-#############################################################
+################################################################################
 ETNA_VIV_VERSION = master
-ETNA_VIV_SITE = git://github.com/laanwj/etna_viv.git
+ETNA_VIV_SITE = $(call github,laanwj,etna_viv,$(ETNA_VIV_VERSION))
 ETNA_VIV_INSTALL_STAGING = YES
 # Currently, etna_viv only builds static libs, no point in installing those
 # on the target.
