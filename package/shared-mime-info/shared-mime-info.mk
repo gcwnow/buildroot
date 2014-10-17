@@ -5,7 +5,7 @@
 ################################################################################
 
 SHARED_MIME_INFO_VERSION = master
-SHARED_MIME_INFO_SITE = git://github.com/gcwnow/shared-mime-info.git
+SHARED_MIME_INFO_SITE = $(call github,gcwnow,shared-mime-info,$(SHARED_MIME_INFO_VERSION))
 
 SHARED_MIME_INFO_INSTALL_STAGING = YES
 
