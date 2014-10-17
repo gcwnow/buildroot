@@ -21,6 +21,17 @@ rm -f ${TARGET_DIR}/etc/init.d/S49ntp
 # Remove the DRI drivers
 rm -rf ${TARGET_DIR}/usr/lib/dri
 
+# Remove the parts from udev's hwdb that we don't need
+rm -rf ${TARGET_DIR}/etc/udev/hwdb.d/20-pci-vendor-model.hwdb \
+	${TARGET_DIR}/etc/udev/hwdb.d/20-pci-classes.hwdb \
+	${TARGET_DIR}/etc/udev/hwdb.d/20-sdio-vendor-model.hwdb \
+	${TARGET_DIR}/etc/udev/hwdb.d/20-sdio-classes.hwdb \
+	${TARGET_DIR}/etc/udev/hwdb.d/20-OUI.hwdb \
+	${TARGET_DIR}/etc/udev/hwdb.d/20-acpi-vendor.hwdb
+
+# Remove locales
+rm -rf ${TARGET_DIR}/usr/share/locale
+
 # Clear 'dependency_libs' key from libtool archives.
 # Linux supports dependencies between dynamic libraries; libtool trying to keep
 # track of them as well causes problems when it inevitably gets it wrong.
