@@ -1,10 +1,10 @@
-#############################################################
+################################################################################
 #
 # pyCLOCK
 #
-#############################################################
+################################################################################
 PYCLOCK_VERSION = master
-PYCLOCK_SITE = git://github.com/gcwnow/pyCLOCK.git
+PYCLOCK_SITE = $(call github,gcwnow,pyCLOCK,$(PYCLOCK_VERSION))
 PYCLOCK_DEPENDENCIES = python-pygame
 
 ifeq ($(BR2_PACKAGE_GMENU2X),y)
