@@ -1,10 +1,11 @@
-#############################################################
+################################################################################
 #
 # libopk
 #
-#############################################################
+################################################################################
+
 LIBOPK_VERSION = v1.0.6
-LIBOPK_SITE = git://github.com/gcwnow/libopk.git
+LIBOPK_SITE = $(call github,gcwnow,libopk,$(LIBOPK_VERSION))
 LIBOPK_DEPENDENCIES = zlib libini
 LIBOPK_INSTALL_STAGING = YES
 
