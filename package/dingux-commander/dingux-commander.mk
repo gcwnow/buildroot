@@ -1,10 +1,11 @@
-#############################################################
+################################################################################
 #
 # DinguxCommander
 #
-#############################################################
+################################################################################
+
 DINGUX_COMMANDER_VERSION = master
-DINGUX_COMMANDER_SITE = git://github.com/gcwnow/DinguxCommander.git
+DINGUX_COMMANDER_SITE = $(call github,gcwnow,DinguxCommander,$(DINGUX_COMMANDER_VERSION))
 DINGUX_COMMANDER_DEPENDENCIES = sdl sdl_image sdl_ttf
 
 DINGUX_COMMANDER_RESDIR = /usr/share/DinguxCommander
