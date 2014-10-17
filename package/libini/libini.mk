@@ -1,10 +1,11 @@
-#############################################################
+################################################################################
 #
 # libini
 #
-#############################################################
+################################################################################
+
 LIBINI_VERSION = master
-LIBINI_SITE = git://github.com/pcercuei/libini.git
+LIBINI_SITE = $(call github,pcercuei,libini,$(LIBINI_VERSION))
 LIBINI_INSTALL_STAGING = YES
 
 define LIBINI_BUILD_PYTHON
