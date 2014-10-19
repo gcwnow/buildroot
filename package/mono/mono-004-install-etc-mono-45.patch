@@ -1,0 +1,20 @@
+diff --git a/configure.ac b/configure.ac
+index 5ab7588..00bee83 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -3309,15 +3309,6 @@ AC_SUBST(LIBMONO_LA)
+ dnl
+ dnl Consistency settings
+ dnl
+-if test x$cross_compiling = xyes -o x$enable_mcs_build = xno; then
+-   DISABLE_MCS_DOCS=yes
+-   with_profile2=no
+-   with_profile4=no
+-   with_profile4_5=no
+-   with_monodroid=no
+-   with_monotouch=no
+-   with_xammac=no
+-fi
+ 
+ if test x$DISABLE_MCS_DOCS = xyes; then
+    docs_dir=""
