@@ -46,10 +46,6 @@ HOST_MONO_CONF_OPT = --disable-gtk-doc \
 	--enable-minimal=aot,profiler,debug \
 	--enable-static
 
-MONO_CONF_OPT += --with-profile2=$(if $(BR2_PACKAGE_MONO_20),yes,no)
-MONO_CONF_OPT += --with-profile4=$(if $(BR2_PACKAGE_MONO_40),yes,no)
-MONO_CONF_OPT += --with-profile4_5=$(if $(BR2_PACKAGE_MONO_45),yes,no)
-
 # These options refer to the target mono, not the host. We use the host
 # only to compile libraries, then we copy them to the target.
 HOST_MONO_CONF_OPT += --with-profile2=$(if $(BR2_PACKAGE_MONO_20),yes,no)
