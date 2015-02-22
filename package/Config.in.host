@@ -1,5 +1,6 @@
 menu "Host utilities"
 
+source "package/clang/Config.in.host"
 source "package/dfu-util/Config.in.host"
 source "package/dosfstools/Config.in.host"
 source "package/e2fsprogs/Config.in.host"

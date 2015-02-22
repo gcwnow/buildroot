@@ -1,0 +1,13 @@
+diff --git a/lib/Driver/Tools.cpp b/lib/Driver/Tools.cpp
+index 198e82e..e1fa2a3 100644
+--- a/lib/Driver/Tools.cpp
++++ b/lib/Driver/Tools.cpp
+@@ -7207,6 +7207,8 @@ static StringRef getLinuxDynamicLinker(const ArgList &Args,
+              ToolChain.getArch() == llvm::Triple::mipsel) {
+     if (mips::isNaN2008(Args, ToolChain.getTriple()))
+       return "/lib/ld-linux-mipsn8.so.1";
++    else if (ToolChain.getTriple().getEnvironment() == llvm::Triple::UClibc)
++      return "/lib/ld-uClibc.so.0";
+     return "/lib/ld.so.1";
+   } else if (ToolChain.getArch() == llvm::Triple::mips64 ||
+              ToolChain.getArch() == llvm::Triple::mips64el) {
