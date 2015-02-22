@@ -1,0 +1,33 @@
+diff --git a/include/llvm/ADT/Triple.h b/include/llvm/ADT/Triple.h
+index b96f114..f8519b8 100644
+--- a/include/llvm/ADT/Triple.h
++++ b/include/llvm/ADT/Triple.h
+@@ -152,6 +152,8 @@ public:
+     MSVC,
+     Itanium,
+     Cygnus,
++
++    UClibc,
+   };
+   enum ObjectFormatType {
+     UnknownObjectFormat,
+diff --git a/lib/Support/Triple.cpp b/lib/Support/Triple.cpp
+index 714d9e8..b35039f 100644
+--- a/lib/Support/Triple.cpp
++++ b/lib/Support/Triple.cpp
+@@ -172,6 +172,7 @@ const char *Triple::getEnvironmentTypeName(EnvironmentType Kind) {
+   case MSVC: return "msvc";
+   case Itanium: return "itanium";
+   case Cygnus: return "cygnus";
++  case UClibc: return "uclibc";
+   }
+ 
+   llvm_unreachable("Invalid EnvironmentType!");
+@@ -348,6 +349,7 @@ static Triple::EnvironmentType parseEnvironment(StringRef EnvironmentName) {
+     .StartsWith("msvc", Triple::MSVC)
+     .StartsWith("itanium", Triple::Itanium)
+     .StartsWith("cygnus", Triple::Cygnus)
++    .StartsWith("uclibc", Triple::UClibc)
+     .Default(Triple::UnknownEnvironment);
+ }
+ 
