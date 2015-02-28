@@ -1,0 +1,10 @@
+config BR2_PACKAGE_LIBGLOG
+	bool "libglog"
+	depends on BR2_INSTALL_LIBSTDCPP
+	help
+	  Logging library for C++
+
+	  http://code.google.com/p/google-glog/
+
+comment "libglog needs a toolchain w/ C++"
+	depends on !BR2_INSTALL_LIBSTDCPP
