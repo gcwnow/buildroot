@@ -1,0 +1,18 @@
+config BR2_PACKAGE_LIBMTPSERVER
+	bool "libmtpserver"
+	# Dependencies are inherited from Boost
+	depends on BR2_USE_MMU
+	depends on BR2_INSTALL_LIBSTDCPP
+	depends on BR2_LARGEFILE
+	depends on BR2_TOOLCHAIN_HAS_THREADS
+	select BR2_PACKAGE_BOOST
+	select BR2_PACKAGE_BOOST_FILESYSTEM
+	select BR2_PACKAGE_BOOST_SYSTEM
+	select BR2_PACKAGE_BOOST_TEST
+	select BR2_PACKAGE_BOOST_THREAD
+	select BR2_PACKAGE_LIBGLOG
+	help
+	  MTP server
+
+comment "libmtpserver needs a toolchain w/ C++, MMU, largefile, threads"
+	depends on !BR2_INSTALL_LIBSTDCPP || !BR2_LARGEFILE || !BR2_TOOLCHAIN_HAS_THREADS || !BR2_USE_MMU
