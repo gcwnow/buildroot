@@ -12,6 +12,8 @@ LIBMIKMOD_CONF_OPT = --localstatedir=/var \
 LIBMIKMOD_LIBTOOL_PATCH = NO
 LIBMIKMOD_INSTALL_STAGING = YES
 
+LIBMIKMOD_CONFIG_SCRIPTS = libmikmod-config
+
 define LIBMIKMOD_REMOVE_LIBMIKMOD_CONFIG
 rm -f $(TARGET_DIR)/usr/bin/libmikmod-config
 endef
