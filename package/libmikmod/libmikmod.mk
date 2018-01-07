@@ -3,7 +3,7 @@
 # libmikmod
 #
 #############################################################
-LIBMIKMOD_VERSION:=3.3.6
+LIBMIKMOD_VERSION:=3.3.11.1
 LIBMIKMOD_SITE:=http://sourceforge.net/projects/mikmod/files/libmikmod/$(LIBMIKMOD_VERSION)
 
 LIBMIKMOD_CONF_OPT = --localstatedir=/var \
@@ -20,3 +20,4 @@ endef
 LIBMIKMOD_POST_INSTALL_TARGET_HOOKS += LIBMIKMOD_REMOVE_LIBMIKMOD_CONFIG
 
 $(eval $(autotools-package))
+

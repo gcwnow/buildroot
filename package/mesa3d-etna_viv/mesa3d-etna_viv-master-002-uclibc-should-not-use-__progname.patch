@@ -1,0 +1,38 @@
+From 7228c645d6950a9fc4a64f6a13d6633c3baa209b Mon Sep 17 00:00:00 2001
+From: Jens Nyberg <jens.nyberg@gmail.com>
+Date: Sun, 21 Feb 2016 16:02:20 +0100
+Subject: [PATCH] uclibc should not use __progname
+
+---
+ src/mesa/drivers/dri/common/xmlconfig.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/src/mesa/drivers/dri/common/xmlconfig.c b/src/mesa/drivers/dri/common/xmlconfig.c
+index ce37647..bc7ea02 100644
+--- a/src/mesa/drivers/dri/common/xmlconfig.c
++++ b/src/mesa/drivers/dri/common/xmlconfig.c
+@@ -39,7 +39,7 @@
+ 
+ #undef GET_PROGRAM_NAME
+ 
+-#if (defined(__GNU_LIBRARY__) || defined(__GLIBC__)) && !defined(__UCLIBC__)
++#if (defined(__GNU_LIBRARY__) || defined(__GLIBC__))
+ #    if !defined(__GLIBC__) || (__GLIBC__ < 2)
+ /* These aren't declared in any libc5 header */
+ extern char *program_invocation_name, *program_invocation_short_name;
+@@ -86,10 +86,8 @@ static const char *__getProgramName () {
+ #endif
+ 
+ #if !defined(GET_PROGRAM_NAME)
+-#    if defined(__OpenBSD__) || defined(NetBSD) || defined(__UCLIBC__) || defined(ANDROID)
+-/* This is a hack. It's said to work on OpenBSD, NetBSD and GNU.
+- * Rogelio M.Serrano Jr. reported it's also working with UCLIBC. It's
+- * used as a last resort, if there is no documented facility available. */
++#    if defined(__OpenBSD__) || defined(NetBSD) || defined(ANDROID)
++/* This is a hack. It's said to work on OpenBSD, NetBSD and GNU. */
+ static const char *__getProgramName () {
+     extern const char *__progname;
+     char * arg = strrchr(__progname, '/');
+-- 
+2.7.1
+
